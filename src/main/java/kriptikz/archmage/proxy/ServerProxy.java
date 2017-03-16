@@ -1,6 +1,7 @@
 package kriptikz.archmage.proxy;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -9,20 +10,23 @@ public class ServerProxy implements IProxy
 {
 	@Override
 	public void preInit()
-	{
-		
+	{		
 	}
 
 	@Override
 	public void init()
-	{
-	
+	{	
 	}
 
 	@Override
 	public void postInit()
-	{
+	{	
+	}
 	
+	@Override
+	public void spawnParticle(EnumParticleTypes particleType, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed,
+			double zSpeed)
+	{		
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package kriptikz.archmage.proxy;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -12,6 +13,19 @@ public interface IProxy
 	void init();
 
 	void postInit();
+	
+	/**
+	 * Spawn a particle, can be called from common code. Server implementation should be empty.
+	 * 
+	 * @param particleType
+	 * @param xCoord
+	 * @param yCoord
+	 * @param zCoord
+	 * @param xSpeed
+	 * @param ySpeed
+	 * @param zSpeed
+	 */
+	public void spawnParticle(EnumParticleTypes particleType, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed);
 
 	/**
 	 * Get the {@link IThreadListender} for the {@link MessageContext}'s {@link Side}.
@@ -19,7 +33,7 @@ public interface IProxy
 	 * @param context The message context
 	 * @return The thread listener
 	 */
-	IThreadListener getThreadListener(MessageContext context);
+	public IThreadListener getThreadListener(MessageContext context);
 
 	/**
 	 * Get the {@link EntityPlayer} from the {@link MessageContext}.
@@ -27,7 +41,7 @@ public interface IProxy
 	 * @param context The message context
 	 * @return The player
 	 */
-	EntityPlayer getEntityPlayer(MessageContext context);
+	public EntityPlayer getEntityPlayer(MessageContext context);
 	
 	/**
 	 * Get the {@link World} from the {@link MessageContext}.
@@ -35,5 +49,5 @@ public interface IProxy
 	 * @param context The message context
 	 * @return The world
 	 */
-	World getWorld(MessageContext context);
+	public World getWorld(MessageContext context);
 }

@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import com.google.common.base.Optional;
 
 import io.netty.buffer.ByteBuf;
+import kriptikz.archmage.Archmage;
 import kriptikz.archmage.capability.spelldata.ISpellData;
 import kriptikz.archmage.capability.spelldata.SpellDataProvider;
 import kriptikz.archmage.spell.ISpellBase;
@@ -156,7 +157,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
             	{
             		for (int j = 0; j < 1; j++)
             		{
-            			this.world.spawnParticle(this.getTravelParticles()[i], this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+            			Archmage.proxy.spawnParticle(this.getTravelParticles()[i], this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
             		}
             	}
             }
@@ -195,11 +196,11 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 	        	{
 	        		for (int j = 0; j < 20; j++)
 	        		{
-						this.world.spawnParticle(this.getImpactParticles()[i],
+						Archmage.proxy.spawnParticle(this.getImpactParticles()[i],
 								entity.posX + rand.nextFloat() * entity.width * 2.0F - entity.width,
 								entity.posY + 0.5D + rand.nextFloat() * entity.height,
 								entity.posZ + rand.nextFloat() * entity.width * 2.0F - entity.width, motionX, motionY,
-								motionZ, new int[0]);
+								motionZ);
 	        	        motionX = rand.nextGaussian() * 0.02D;
 	        	        motionY = rand.nextGaussian() * 0.02D;
 	        	        motionZ = rand.nextGaussian() * 0.02D;
@@ -216,8 +217,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 	        	{
 	        		for (int j = 0; j < 20; j++)
 	        		{
-						this.world.spawnParticle(this.getImpactParticles()[i], posX, posY, posZ, motionX, motionY, motionZ,
-								new int[0]);
+						Archmage.proxy.spawnParticle(this.getImpactParticles()[i], posX, posY, posZ, motionX, motionY, motionZ);
 						motionX = rand.nextGaussian() * 0.02D;
 						motionY = rand.nextGaussian() * 0.02D;
 						motionZ = rand.nextGaussian() * 0.02D;
