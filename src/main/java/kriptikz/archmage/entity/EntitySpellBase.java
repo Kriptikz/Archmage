@@ -52,34 +52,13 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 	private ISpellData spellData;
 	
 	/**
-	 * The speed the spell will travel.
-	 */
-	private double speed;
-	
-	/**
-	 * The spells travel particles.
-	 */
-	private EnumParticleTypes[] travelParticles;
-
-	/**
-	 * The spells impact particles.
-	 */
-	private EnumParticleTypes[] impactParticles;
-	
-	/**
-	 * The max ticks the spell can be alive for.
-	 */
-	private int maxTicksExisted;
-	
-	/**
 	 * Ticks the spell has been in the air for.
 	 */
 	private int ticksInAir;
 
 	public EntitySpellBase(World worldIn)
 	{
-		super(worldIn);	
-		this.setSize(1.0f, 1.0f);
+		super(worldIn);
 	}
 	
 	public EntitySpellBase(World world, EntityLivingBase caster)
@@ -89,10 +68,6 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 		this.caster = caster;
 		this.setCasterId(caster.getUniqueID());
 		this.setSpellData(caster);
-		this.speed = getSpeed();
-		this.maxTicksExisted = getMaxTicksExisted();
-		this.travelParticles = getTravelParticles();
-		this.impactParticles = getImpactParticles();
 		this.setPositionAndDirection(caster);
 	}
 	
@@ -119,9 +94,9 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 		
 		Vec3d look = this.caster.getLookVec();
 		
-		this.motionX = look.xCoord * this.speed;
-		this.motionY = look.yCoord * this.speed;
-		this.motionZ = look.zCoord * this.speed;
+		this.motionX = look.xCoord * this.getSpeed();
+		this.motionY = look.yCoord * this.getSpeed();
+		this.motionZ = look.zCoord * this.getSpeed();
 	}
 		
     /**
@@ -152,13 +127,13 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
     	this.caster = this.getCaster();
     	setSpellData(caster);
     	
-    	if ((this.caster == null || !this.caster.isDead) || this.world.isRemote && this.world.isBlockLoaded(new BlockPos(this)))
+    	if (this.world.isBlockLoaded(new BlockPos(this)))
         {
             super.onUpdate();
 
             ++this.ticksInAir;
             
-            if (this.ticksExisted >= this.maxTicksExisted)
+            if (this.ticksExisted >= this.getMaxTicksExisted())
             {
             	this.setDead();
             }
@@ -167,7 +142,6 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 
             if (raytraceresult != null && !(raytraceresult.entityHit instanceof EntityPlayer))
             {
-            	//System.out.println("***********HIT***************");
                 this.onImpact(raytraceresult);
             }
 
@@ -176,14 +150,13 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
             this.posZ += this.motionZ;
             
             
-            if (this.travelParticles != null)
+            if (this.getTravelParticles() != null)
             {
-            	for (int i = 0; i < travelParticles.length; i++)
+            	for (int i = 0; i < this.getTravelParticles().length; i++)
             	{
             		for (int j = 0; j < 1; j++)
             		{
-            			if (world.isRemote)
-            			this.world.spawnParticle(travelParticles[i], this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+            			this.world.spawnParticle(this.getTravelParticles()[i], this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
             		}
             	}
             }
@@ -212,17 +185,17 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
         double motionZ = rand.nextGaussian() * 0.02D;
   
         
-        if (impactParticles != null)
+        if (this.getImpactParticles() != null)
         {
 			if (result.typeOfHit == RayTraceResult.Type.ENTITY)
 			{
 				Entity entity = result.entityHit;
 				
-	        	for (int i = 0; i < impactParticles.length; i++)
+	        	for (int i = 0; i < this.getImpactParticles().length; i++)
 	        	{
 	        		for (int j = 0; j < 20; j++)
 	        		{
-						this.world.spawnParticle(impactParticles[i],
+						this.world.spawnParticle(this.getImpactParticles()[i],
 								entity.posX + rand.nextFloat() * entity.width * 2.0F - entity.width,
 								entity.posY + 0.5D + rand.nextFloat() * entity.height,
 								entity.posZ + rand.nextFloat() * entity.width * 2.0F - entity.width, motionX, motionY,
@@ -239,11 +212,11 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 				BlockPos blockHit = result.getBlockPos();
 				blockHit = blockHit.offset(result.sideHit);
 				
-	        	for (int i = 0; i < impactParticles.length; i++)
+	        	for (int i = 0; i < this.getImpactParticles().length; i++)
 	        	{
 	        		for (int j = 0; j < 20; j++)
 	        		{
-						this.world.spawnParticle(impactParticles[i], posX, posY, posZ, motionX, motionY, motionZ,
+						this.world.spawnParticle(this.getImpactParticles()[i], posX, posY, posZ, motionX, motionY, motionZ,
 								new int[0]);
 						motionX = rand.nextGaussian() * 0.02D;
 						motionY = rand.nextGaussian() * 0.02D;
@@ -349,7 +322,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 
 	@Override
 	public void readSpawnData(ByteBuf additionalData)
-	{
+	{	
 		String uuid = new String();
 		
 		for (int i = 0; i < 36; i++)
