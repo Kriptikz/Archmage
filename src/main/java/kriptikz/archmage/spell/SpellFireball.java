@@ -1,14 +1,10 @@
 package kriptikz.archmage.spell;
 
-import java.util.List;
-
 import kriptikz.archmage.entity.EntitySpellBase;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
@@ -31,6 +27,11 @@ public class SpellFireball extends EntitySpellBase
 		{
 			if (result.entityHit instanceof EntityLiving)
 			{	
+				result.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, caster), 10);
+				result.entityHit.setFire(3);
+				
+				// AOE
+				/* 
 				AxisAlignedBB aabb = this.getEntityBoundingBox().expandXyz(5.0D);
 				List<EntityLivingBase> surroundingEntities = this.world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
 				
@@ -50,6 +51,7 @@ public class SpellFireball extends EntitySpellBase
 						result.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, caster), 10);
 					}
 				}
+				*/
 			} 
 		}
 	}
