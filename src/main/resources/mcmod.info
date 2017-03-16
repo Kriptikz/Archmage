@@ -1,0 +1,16 @@
+[
+{
+  "modid": "archmage",
+  "name": "Archmage",
+  "description": "Archmage is about spell casting, where the more spells you cast the stronger you become.",
+  "version": "0.0.1",
+  "mcversion": "1.11.2",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Kriptikz"],
+  "credits": "CountTaco, for all of the art.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
