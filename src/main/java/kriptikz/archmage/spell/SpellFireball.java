@@ -3,14 +3,12 @@ package kriptikz.archmage.spell;
 import java.util.List;
 
 import kriptikz.archmage.entity.EntitySpellBase;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 
 public class SpellFireball extends EntitySpellBase
