@@ -167,9 +167,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 
             if (raytraceresult != null && !(raytraceresult.entityHit instanceof EntityPlayer))
             {
-            	//if (world.isRemote)
-            		System.out.println("***********HIT***************");
-            	System.out.println("Caster: " + this.caster);
+            	//System.out.println("***********HIT***************");
                 this.onImpact(raytraceresult);
             }
 
