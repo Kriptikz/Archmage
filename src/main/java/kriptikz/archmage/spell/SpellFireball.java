@@ -1,11 +1,16 @@
 package kriptikz.archmage.spell;
 
+import java.util.List;
+
 import kriptikz.archmage.entity.EntitySpellBase;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 
 public class SpellFireball extends EntitySpellBase
@@ -13,6 +18,7 @@ public class SpellFireball extends EntitySpellBase
 	public SpellFireball(World world)
 	{
 		super(world);
+		this.setSize(1.0f, 1.0f);
 	}
 
 	public SpellFireball(World world, EntityLivingBase caster)
@@ -25,34 +31,29 @@ public class SpellFireball extends EntitySpellBase
 	{
 		if (!caster.world.isRemote)
 		{
-			if (result.entityHit instanceof EntityLiving)
-			{	
-				result.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, caster), 10);
-				result.entityHit.setFire(3);
-				
-				// AOE
-				/* 
-				AxisAlignedBB aabb = this.getEntityBoundingBox().expandXyz(5.0D);
+				AxisAlignedBB aabb = this.getEntityBoundingBox().expandXyz(3.0D);
 				List<EntityLivingBase> surroundingEntities = this.world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
 				
-				for (EntityLivingBase entity : surroundingEntities)
+				if (surroundingEntities != null)
 				{
-					if (entity instanceof EntityPlayer)
+					for (EntityLivingBase entity : surroundingEntities)
 					{
-						if (entity != caster)
+						if (entity instanceof EntityPlayer)
 						{
-							entity.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, caster), 10);
-							entity.setFire(3);
+							if (entity != caster)
+							{
+								entity.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, caster), 10);
+								entity.setFire(3);
+							}
 						}
-					}
-					else
-					{
-						result.entityHit.setFire(3);
-						result.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, caster), 10);
-					}
+						else
+						{
+							entity.setFire(3);
+							entity.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, caster), 10);
+						}
+					} 
 				}
-				*/
-			} 
+
 		}
 	}
 	
