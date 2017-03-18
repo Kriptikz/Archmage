@@ -3,6 +3,8 @@ package kriptikz.archmage.entity;
 import java.lang.ref.WeakReference;
 import java.util.UUID;
 
+import javax.annotation.Nullable;
+
 import io.netty.buffer.ByteBuf;
 import kriptikz.archmage.Archmage;
 import kriptikz.archmage.capability.spelldata.ISpellData;
@@ -232,10 +234,11 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
     }
     
 	/**
-	 * Get this spells caster.
+	 * Get this spells caster. If null, the caster is offline.
 	 * 
 	 * @return The caster
 	 */
+    @Nullable
     public EntityLivingBase getCaster()
     {
     	EntityLivingBase caster = this.casterRef == null ? null : this.casterRef.get();
