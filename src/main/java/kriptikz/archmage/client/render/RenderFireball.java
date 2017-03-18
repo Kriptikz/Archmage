@@ -45,10 +45,10 @@ public class RenderFireball extends Render<SpellFireball>
         }
 
         vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
-        vertexbuffer.pos(-0.5D, -0.25D, 0.0D).tex((double)1, (double)0).normal(0.0F, 1.0F, 0.0F).endVertex();
-        vertexbuffer.pos(0.5D, -0.25D, 0.0D).tex((double)1, (double)1).normal(0.0F, 1.0F, 0.0F).endVertex();
-        vertexbuffer.pos(0.5D, 0.75D, 0.0D).tex((double)1, (double)0).normal(0.0F, 1.0F, 0.0F).endVertex();
-        vertexbuffer.pos(-0.5D, 0.75D, 0.0D).tex((double)0, (double)0).normal(0.0F, 1.0F, 0.0F).endVertex();
+        vertexbuffer.pos(-0.5D, -0.5D, 0.0D).tex((double)0, (double)1).normal(0.0F, 1.0F, 0.0F).endVertex();
+        vertexbuffer.pos(0.5D, -0.5D, 0.0D).tex((double)1, (double)1).normal(0.0F, 1.0F, 0.0F).endVertex();
+        vertexbuffer.pos(0.5D, 0.5D, 0.0D).tex((double)1, (double)0).normal(0.0F, 1.0F, 0.0F).endVertex();
+        vertexbuffer.pos(-0.5D, 0.5D, 0.0D).tex((double)0, (double)0).normal(0.0F, 1.0F, 0.0F).endVertex();
         tessellator.draw();
 
         if (this.renderOutlines)
