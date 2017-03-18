@@ -1,10 +1,7 @@
 package kriptikz.archmage.entity;
 
+import java.lang.ref.WeakReference;
 import java.util.UUID;
-
-import javax.annotation.Nullable;
-
-import com.google.common.base.Optional;
 
 import io.netty.buffer.ByteBuf;
 import kriptikz.archmage.Archmage;
@@ -17,9 +14,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -40,12 +34,12 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 	/**
 	 * The spell caster's UUID.
 	 */
-	private static final DataParameter<Optional<UUID>> CASTER_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntitySpellBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	private UUID casterId;
 	
 	/**
 	 * The {@link EntityLivingBase} that cast the spell.
 	 */
-	private EntityLivingBase caster;
+	private WeakReference<EntityLivingBase> casterRef;
 	
 	/**
 	 * The caster's {@link ISpellData} capability.
@@ -60,22 +54,23 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 	public EntitySpellBase(World worldIn)
 	{
 		super(worldIn);
+		System.out.println("******************CONSTRUCTOR1**********************");
 	}
 	
 	public EntitySpellBase(World world, EntityLivingBase caster)
 	{
 		this(world);
 		
-		this.caster = caster;
-		this.setCasterId(caster.getUniqueID());
+		this.casterRef = new WeakReference<EntityLivingBase>(caster);
+		this.casterId = caster.getUniqueID();
 		this.setSpellData(caster);
 		this.setPositionAndDirection(caster);
+		System.out.println("******************CONSTRUCTOR2**********************");
 	}
 	
 	@Override
 	public void entityInit()
 	{
-		this.dataManager.register(CASTER_UNIQUE_ID, Optional.<UUID>absent());
 	}
 
 	@Override
@@ -93,7 +88,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 	{	
 		this.setPosition(caster.posX, caster.posY + caster.getEyeHeight() - 0.10000000149011612D, caster.posZ);
 		
-		Vec3d look = this.caster.getLookVec();
+		Vec3d look = caster.getLookVec();
 		
 		this.motionX = look.xCoord * this.getSpeed();
 		this.motionY = look.yCoord * this.getSpeed();
@@ -124,11 +119,18 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
      */
     @Override
     public void onUpdate()
-    {
-    	this.caster = this.getCaster();
-    	setSpellData(caster);
+    { 	
+    	EntityLivingBase caster = getCaster();
     	
-    	if (this.world.isBlockLoaded(new BlockPos(this)))
+    	if (caster == null)
+    	{
+    		this.setDead();
+    		return;
+    	}
+    	
+    	this.spellData = caster.getCapability(SpellDataProvider.SPELL_DATA, null);
+    	
+    	if (((caster == null || !caster.isDead) || this.world.isRemote && this.world.isBlockLoaded(new BlockPos(this))))
         {
             super.onUpdate();
 
@@ -139,7 +141,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
             	this.setDead();
             }
 
-            RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, true, this.ticksInAir >= 25, this.caster);
+            RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, true, this.ticksInAir >= 25, caster);
 
             if (raytraceresult != null && !(raytraceresult.entityHit instanceof EntityPlayer))
             {
@@ -178,7 +180,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
     protected void onImpact(RayTraceResult result)
     {
     	// Do/Apply the spell.
-    	doSpell(this.caster, result);
+    	doSpell(getCaster(), result);
     	
     	// Spawn the impact particles.
         double motionX = rand.nextGaussian() * 0.02D;
@@ -227,6 +229,25 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
         }
         
         this.setDead();
+    }
+    
+	/**
+	 * Get this spells caster.
+	 * 
+	 * @return The caster
+	 */
+    public EntityLivingBase getCaster()
+    {
+    	EntityLivingBase caster = this.casterRef == null ? null : this.casterRef.get();
+    	if (caster == null)
+    	{
+    		caster = this.world.getPlayerEntityByUUID(this.casterId);
+    		if (caster != null) 
+    		{
+    			this.casterRef = new WeakReference<EntityLivingBase>(caster);
+    		}
+    	}
+    	return caster;
     }
     
     /**
@@ -289,13 +310,22 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
     
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound compound)
-	{	
+	{
+		System.out.println("*********Writing NBT**************");
+		
+		compound.setString("caster_uuid", this.casterId.toString());
 		compound.setTag("direction", this.newDoubleNBTList(new double[] {this.motionX, this.motionY, this.motionZ}));
+		
 	}
 
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound compound)
 	{
+		System.out.println("*********Reading NBT**************");
+		//this.setDead();
+		
+		this.casterId = UUID.fromString(compound.getString("caster_uuid"));
+
         if (compound.hasKey("direction", 9) && compound.getTagList("direction", 6).tagCount() == 3)
         {
             NBTTagList nbttaglist1 = compound.getTagList("direction", 6);
@@ -307,12 +337,13 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
         {
             this.setDead();
         }
+        
 	}
 
 	@Override
 	public void writeSpawnData(ByteBuf buffer)
 	{
-		String uuid = this.getCasterId().toString();
+		String uuid = this.casterId.toString();
 		
 		for (int i = 0; i < uuid.length(); i++)
 		{
@@ -330,38 +361,8 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 			uuid += Character.toString(additionalData.readChar());
 		}
 		
-		this.setCasterId(UUID.fromString(uuid));
+		this.casterId = UUID.fromString(uuid);
 	}
-
-	/**
-	 * Get this spells caster.
-	 * 
-	 * @return The caster
-	 */
-    public EntityLivingBase getCaster()
-    {
-            return this.world.getPlayerEntityByUUID(this.getCasterId());
-    }
-	
-    /**
-     * Store the casters UUID in the spell.
-     * 
-     * @param uuid The casters {@link UUID}
-     */
-    public void setCasterId(@Nullable UUID uuid)
-    {
-        this.dataManager.set(CASTER_UNIQUE_ID, Optional.fromNullable(uuid));
-    }
-    
-    /**
-     * Get the spell casters UUID.
-     * 
-     * @return {@link UUID} of the caster
-     */
-    public UUID getCasterId()
-    {
-        return (UUID)((Optional<UUID>)this.dataManager.get(CASTER_UNIQUE_ID)).orNull();
-    }
 
     /**
      * Get the {@link ISpellData} capability stored in the spell.
