@@ -64,7 +64,7 @@ public class SpellFireball extends EntitySpellBase
 	@Override
 	public double getSpeed()
 	{
-		return 0.2D;
+		return 2.0D;
 	}
 
 	@Override
