@@ -1,5 +1,6 @@
 package kriptikz.archmage.item;
 
+import kriptikz.archmage.Archmage;
 import kriptikz.archmage.capability.spelldata.ISpellData;
 import kriptikz.archmage.capability.spelldata.SpellDataProvider;
 import kriptikz.archmage.entity.EntitySpellBase;
@@ -90,8 +91,9 @@ public class ItemWand extends ItemBase
 					ISpellData spellData = player.getCapability(SpellDataProvider.SPELL_DATA, null);
 					if (spellData.getSelectedSpell() == 0)
 					{
-						player.world.spawnParticle(EnumParticleTypes.FLAME, particlePos.xCoord, particlePos.yCoord,
-								particlePos.zCoord, 0.0D, 0.0D, 0.0D, new int[0]);
+						/*player.world.spawnParticle(EnumParticleTypes.FLAME, particlePos.xCoord, particlePos.yCoord,
+								particlePos.zCoord, 0.0D, 0.0D, 0.0D, new int[0]);*/
+						Archmage.proxy.spawnParticle("ice", 1, particlePos.xCoord, particlePos.yCoord, particlePos.zCoord, 0.0D, 0.0D, 0.0D);
 					}
 					else
 					{
