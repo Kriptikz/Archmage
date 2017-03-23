@@ -16,7 +16,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -33,14 +32,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public abstract class EntitySpellBase extends Entity implements ISpellBase, IEntityAdditionalSpawnData
 {
-	/**
-	 * The spell caster's UUID.
-	 */
+	/** The spell casters UUID. */
 	private UUID casterId;
 	
-	/**
-	 * The {@link EntityLivingBase} that cast the spell.
-	 */
+	/** The {@link EntityLivingBase} that cast the spell. */
 	private WeakReference<EntityLivingBase> casterRef;
 	
 	/**
@@ -56,7 +51,6 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 	public EntitySpellBase(World worldIn)
 	{
 		super(worldIn);
-		System.out.println("******************CONSTRUCTOR1**********************");
 	}
 	
 	public EntitySpellBase(World world, EntityLivingBase caster)
@@ -67,7 +61,6 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 		this.casterId = caster.getUniqueID();
 		this.setSpellData(caster);
 		this.setPositionAndDirection(caster);
-		System.out.println("******************CONSTRUCTOR2**********************");
 	}
 	
 	@Override
@@ -155,13 +148,13 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
             this.posZ += this.motionZ;
             
             
-            if (this.getTravelParticles() != null)
+            if (this.getTravelParticleName() != null)
             {
-            	for (int i = 0; i < this.getTravelParticles().length; i++)
+            	for (int i = 0; i < 1; i++)
             	{
             		for (int j = 0; j < 1; j++)
             		{
-            			Archmage.proxy.spawnParticle(this.getTravelParticles()[i], this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
+            			Archmage.proxy.spawnParticle(this.getTravelParticleName(), this.getTravelParticleVersion(), this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
             		}
             	}
             }
@@ -182,7 +175,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
     protected void onImpact(RayTraceResult result)
     {
     	// Do/Apply the spell.
-    	doSpell(getCaster(), result);
+    	doSpell(this.getCaster(), result);
     	
     	// Spawn the impact particles.
         double motionX = rand.nextGaussian() * 0.02D;
@@ -190,17 +183,17 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
         double motionZ = rand.nextGaussian() * 0.02D;
   
         
-        if (this.getImpactParticles() != null)
+        if (this.getImpactParticleName() != null)
         {
 			if (result.typeOfHit == RayTraceResult.Type.ENTITY)
 			{
 				Entity entity = result.entityHit;
 				
-	        	for (int i = 0; i < this.getImpactParticles().length; i++)
+	        	for (int i = 0; i < 1; i++)
 	        	{
 	        		for (int j = 0; j < 20; j++)
 	        		{
-						Archmage.proxy.spawnParticle(this.getImpactParticles()[i],
+						Archmage.proxy.spawnParticle(this.getImpactParticleName(), this.getImpactParticleVersion(),
 								entity.posX + rand.nextFloat() * entity.width * 2.0F - entity.width,
 								entity.posY + 0.5D + rand.nextFloat() * entity.height,
 								entity.posZ + rand.nextFloat() * entity.width * 2.0F - entity.width, motionX, motionY,
@@ -217,11 +210,11 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 				BlockPos blockHit = result.getBlockPos();
 				blockHit = blockHit.offset(result.sideHit);
 				
-	        	for (int i = 0; i < this.getImpactParticles().length; i++)
+	        	for (int i = 0; i < 1; i++)
 	        	{
 	        		for (int j = 0; j < 20; j++)
 	        		{
-						Archmage.proxy.spawnParticle(this.getImpactParticles()[i], posX, posY, posZ, motionX, motionY, motionZ);
+						Archmage.proxy.spawnParticle(this.getImpactParticleName(), this.getImpactParticleVersion(), posX, posY, posZ, motionX, motionY, motionZ);
 						motionX = rand.nextGaussian() * 0.02D;
 						motionY = rand.nextGaussian() * 0.02D;
 						motionZ = rand.nextGaussian() * 0.02D;
@@ -234,7 +227,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
     }
     
 	/**
-	 * Get this spells caster. If null, the caster is offline.
+	 * Get this spells caster. If null, the caster is offline so the spell will die at {@link EntitySpellBase#onUpdate()}.
 	 * 
 	 * @return The caster
 	 */
@@ -261,18 +254,31 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 	public abstract double getSpeed();
 	
 	/**
-	 * Get the spells travel particles.
+	 * Get the name of the spells travel particle.
 	 * 
 	 * @return
 	 */
-	public abstract EnumParticleTypes[] getTravelParticles();
+	public abstract String getTravelParticleName();
+	
+	/**
+	 * Get the version of the spells travel particle.
+	 * 
+	 * @return
+	 */
+	public abstract int getTravelParticleVersion();
 
 	/**
-	 * Get the spells impact particles.
+	 * Get the name of the spells impact particle.
 	 * 
 	 * @return
 	 */
-	public abstract EnumParticleTypes[] getImpactParticles();
+	public abstract String getImpactParticleName();
+	
+	/**
+	 * Get the version of the spells impact particle.
+	 * @return
+	 */
+	public abstract int getImpactParticleVersion();
 	
 	/**
 	 * Get the max ticks the spell is allowed to exist.
@@ -314,8 +320,6 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound compound)
 	{
-		System.out.println("*********Writing NBT**************");
-		
 		compound.setString("caster_uuid", this.casterId.toString());
 		compound.setTag("direction", this.newDoubleNBTList(new double[] {this.motionX, this.motionY, this.motionZ}));
 		
@@ -323,10 +327,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound compound)
-	{
-		System.out.println("*********Reading NBT**************");
-		//this.setDead();
-		
+	{	
 		this.casterId = UUID.fromString(compound.getString("caster_uuid"));
 
         if (compound.hasKey("direction", 9) && compound.getTagList("direction", 6).tagCount() == 3)
