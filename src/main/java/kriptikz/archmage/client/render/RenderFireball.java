@@ -2,23 +2,22 @@ package kriptikz.archmage.client.render;
 
 import kriptikz.archmage.Reference;
 import kriptikz.archmage.spell.SpellFireball;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class RenderFireball extends Render<SpellFireball>
 {
-	private ResourceLocation texture = new ResourceLocation(Reference.MODID, "textures/entity/projectiles/fireball.png");
+	private ResourceLocation texture = new ResourceLocation(Reference.MODID, "textures/entity/projectiles/fireball_1.png");
+	//private ResourceLocation texture2 = new ResourceLocation(Reference.MODID, "textures/entity/projectiles/fireball_2.png");
+	//private ResourceLocation texture3 = new ResourceLocation(Reference.MODID, "textures/entity/projectiles/fireball_3.png");
+	//private ResourceLocation texture4 = new ResourceLocation(Reference.MODID, "textures/entity/projectiles/fireball_4.png");
 	//private TextureAtlasSprite textureSprite;
 	public static final RenderFactory FACTORY = new RenderFactory();
-	private final float scale = 1;
+	//private int ticks = 0;
+	//private int incrementer = 1;
+	//private final float scale = 0.5f;
 
 	protected RenderFireball(RenderManager renderManager)
 	{
@@ -28,6 +27,21 @@ public class RenderFireball extends Render<SpellFireball>
 	@Override
 	public void doRender(SpellFireball entity, double x, double y, double z, float entityYaw, float partialTicks)
 	{
+		/*
+		ticks += incrementer;
+		
+		if (ticks > 4)
+		{
+			ticks = 3;
+			incrementer = -1;
+		}
+		if (ticks < 1)
+		{
+			ticks = 2;
+			incrementer = 1;
+		}
+		*/
+		/*
         GlStateManager.pushMatrix();
         this.bindEntityTexture(entity);
         GlStateManager.translate((float)x, (float)y, (float)z);
@@ -60,6 +74,7 @@ public class RenderFireball extends Render<SpellFireball>
         GlStateManager.disableRescaleNormal();
         GlStateManager.popMatrix();
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
+        */
 	}
 
 
