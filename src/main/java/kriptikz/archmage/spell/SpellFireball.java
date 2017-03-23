@@ -6,7 +6,6 @@ import kriptikz.archmage.entity.EntitySpellBase;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -66,17 +65,29 @@ public class SpellFireball extends EntitySpellBase
 	{
 		return 2.0D;
 	}
-
+	
 	@Override
-	public EnumParticleTypes[] getTravelParticles()
+	public String getTravelParticleName()
 	{
-		return new EnumParticleTypes[] {EnumParticleTypes.LAVA};
+		return "ice";
+	}
+	
+	@Override
+	public int getTravelParticleVersion()
+	{
+		return 1;
 	}
 
 	@Override
-	public EnumParticleTypes[] getImpactParticles()
+	public String getImpactParticleName()
 	{
-		return new EnumParticleTypes[] {EnumParticleTypes.FLAME};
+		return "ice";
+	}
+	
+	@Override
+	public int getImpactParticleVersion()
+	{
+		return 1;
 	}
 
 }
