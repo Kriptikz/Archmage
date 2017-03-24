@@ -16,7 +16,12 @@ public class TextureStitcher
 	@SubscribeEvent
 	public void textureStitchEventPre(TextureStitchEvent.Pre event)
 	{
-		ResourceLocation ice1 = new ResourceLocation(Reference.MODID, "particle/ice1");
-		event.getMap().registerSprite(ice1);
+		ResourceLocation travel = new ResourceLocation(Reference.MODID, "particle/travel");
+		ResourceLocation impact = new ResourceLocation(Reference.MODID, "particle/impact");
+		ResourceLocation charge = new ResourceLocation(Reference.MODID, "particle/charge");
+		
+		event.getMap().registerSprite(travel);
+		event.getMap().registerSprite(impact);
+		event.getMap().registerSprite(charge);
 	}
 }
