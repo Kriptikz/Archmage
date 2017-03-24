@@ -3,7 +3,7 @@ package kriptikz.archmage.proxy;
 import javax.annotation.Nullable;
 
 import kriptikz.archmage.client.TextureStitcher;
-import kriptikz.archmage.client.particle.ParticleIce;
+import kriptikz.archmage.client.particle.ParticleTest;
 import kriptikz.archmage.init.ModEntities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
@@ -51,16 +51,26 @@ public class ClientProxy implements IProxy
 	public void spawnParticle(String particleName, @Nullable int version, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed,
 			double zSpeed)
 	{
-		Particle particle;
+		Particle particle = null;
 		
 		switch(particleName)
 		{
-			case "ice" : particle = new ParticleIce(version, MINECRAFT.world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed);
+			case "travel":
+				particle = new ParticleTest(1, MINECRAFT.world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed);
 				break;
-			default: particle = null;
+			case "impact":
+				particle = new ParticleTest(2, MINECRAFT.world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed);
+				break;
+			case "charge":
+				particle = new ParticleTest(3, MINECRAFT.world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed);
+				break;
+			default:
 		}
 		
-		MINECRAFT.effectRenderer.addEffect(particle);
+		if ( particle != null)
+		{
+			MINECRAFT.effectRenderer.addEffect(particle);
+		}
 	}
 
 	@Override
