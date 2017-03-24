@@ -93,7 +93,7 @@ public class ItemWand extends ItemBase
 					{
 						/*player.world.spawnParticle(EnumParticleTypes.FLAME, particlePos.xCoord, particlePos.yCoord,
 								particlePos.zCoord, 0.0D, 0.0D, 0.0D, new int[0]);*/
-						Archmage.proxy.spawnParticle("ice", 1, particlePos.xCoord, particlePos.yCoord, particlePos.zCoord, 0.0D, 0.0D, 0.0D);
+						Archmage.proxy.spawnParticle("charge", 1, particlePos.xCoord, particlePos.yCoord, particlePos.zCoord, 0.0D, 0.0D, 0.0D);
 					}
 					else
 					{
