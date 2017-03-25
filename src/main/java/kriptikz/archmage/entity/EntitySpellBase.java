@@ -138,7 +138,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 
             RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, true, this.ticksInAir >= 25, caster);
 
-            if (raytraceresult != null && !(raytraceresult.entityHit instanceof EntityPlayer))
+            if (raytraceresult != null)
             {
                 this.onImpact(raytraceresult);
             }
