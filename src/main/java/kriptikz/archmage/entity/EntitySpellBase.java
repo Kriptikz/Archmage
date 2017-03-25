@@ -12,7 +12,6 @@ import kriptikz.archmage.capability.spelldata.SpellDataProvider;
 import kriptikz.archmage.spell.ISpellBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -117,7 +116,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
     { 	
     	EntityLivingBase caster = getCaster();
     	
-    	if (caster == null)
+    	if (caster == null) // caster is null when they are offline
     	{
     		this.setDead();
     		return;
@@ -287,9 +286,6 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 	 */
 	public abstract int getMaxTicksExisted();
     
-    /**
-     * Returns true if other Entities should be prevented from moving through this Entity.
-     */
     @Override
     public boolean canBeCollidedWith()
     {
@@ -302,9 +298,6 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
         return 1.0F;
     }
 
-    /**
-     * Gets how bright this entity is.
-     */
     @Override
     public float getBrightness(float partialTicks)
     {
