@@ -24,8 +24,8 @@ public class ClientProxy implements IProxy
 		// register texture stitcher
 		MinecraftForge.EVENT_BUS.register(new TextureStitcher());
 		
-		// register entity models
-		ModEntities.registerModels();
+		// register entity renders
+		ModEntities.registerRenders();
 	}
 
 	@Override

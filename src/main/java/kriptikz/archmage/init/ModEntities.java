@@ -22,7 +22,7 @@ public class ModEntities
 	}
 	
 	@SideOnly(Side.CLIENT)
-	public static void registerModels()
+	public static void registerRenders()
 	{
 		RenderingRegistry.registerEntityRenderingHandler(SpellFireball.class, RenderFireball.FACTORY);
 	}
