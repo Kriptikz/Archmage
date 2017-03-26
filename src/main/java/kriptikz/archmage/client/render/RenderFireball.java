@@ -13,7 +13,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class RenderFireball extends Render<SpellFireball>
 {
-	private ResourceLocation texture = new ResourceLocation(Reference.MODID, "textures/entity/projectiles/fireball_1.png");
+	private ResourceLocation texture = new ResourceLocation(Reference.MODID, "textures/entity/projectiles/fireball.png");
 	public static final RenderFactory FACTORY = new RenderFactory();
 	private final float scale = 0.5f;
 
