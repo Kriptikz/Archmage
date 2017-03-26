@@ -153,7 +153,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
             	{
             		for (int j = 0; j < 1; j++)
             		{
-            			Archmage.proxy.spawnParticle(this.getTravelParticleName(), this.getTravelParticleVersion(), this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
+            			Archmage.proxy.spawnParticle(this.getTravelParticleName(), this.getTravelParticleVersion(), this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
             		}
             	}
             }
@@ -210,13 +210,13 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 				blockHit = blockHit.offset(result.sideHit);
 				
 	        	for (int i = 0; i < 1; i++)
-	        	{
-	        		for (int j = 0; j < 20; j++)
+	        	{    		
+	        		for (int j = 0; j < 15; j++)
 	        		{
 						Archmage.proxy.spawnParticle(this.getImpactParticleName(), this.getImpactParticleVersion(), posX, posY, posZ, motionX, motionY, motionZ);
-						motionX = rand.nextGaussian() * 0.02D;
-						motionY = rand.nextGaussian() * 0.02D;
-						motionZ = rand.nextGaussian() * 0.02D;
+						motionX = rand.nextGaussian() * 0.04D;
+						motionY = rand.nextGaussian() * 0.04D;
+						motionZ = rand.nextGaussian() * 0.04D;
 	        		}
 	        	}
 			}
