@@ -3,7 +3,8 @@ package kriptikz.archmage.proxy;
 import javax.annotation.Nullable;
 
 import kriptikz.archmage.client.TextureStitcher;
-import kriptikz.archmage.client.particle.ParticleTest;
+import kriptikz.archmage.client.particle.ParticleDefault;
+import kriptikz.archmage.client.particle.ParticleFire;
 import kriptikz.archmage.init.ModEntities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
@@ -55,16 +56,11 @@ public class ClientProxy implements IProxy
 		
 		switch(particleName)
 		{
-			case "travel":
-				particle = new ParticleTest(1, MINECRAFT.world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed);
-				break;
-			case "impact":
-				particle = new ParticleTest(2, MINECRAFT.world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed);
-				break;
-			case "charge":
-				particle = new ParticleTest(3, MINECRAFT.world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed);
+			case "fire":
+				particle = new ParticleFire(1, MINECRAFT.world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed);
 				break;
 			default:
+				particle = new ParticleDefault(1, MINECRAFT.world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed);
 		}
 		
 		if ( particle != null)
