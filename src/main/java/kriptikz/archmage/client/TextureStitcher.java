@@ -16,12 +16,10 @@ public class TextureStitcher
 	@SubscribeEvent
 	public void textureStitchEventPre(TextureStitchEvent.Pre event)
 	{
-		ResourceLocation travel = new ResourceLocation(Reference.MODID, "particle/travel");
-		ResourceLocation impact = new ResourceLocation(Reference.MODID, "particle/impact");
-		ResourceLocation charge = new ResourceLocation(Reference.MODID, "particle/charge");
+		ResourceLocation particle_default = new ResourceLocation(Reference.MODID, "particle/default");
+		ResourceLocation fire = new ResourceLocation(Reference.MODID, "particle/fire");
 		
-		event.getMap().registerSprite(travel);
-		event.getMap().registerSprite(impact);
-		event.getMap().registerSprite(charge);
+		event.getMap().registerSprite(particle_default);
+		event.getMap().registerSprite(fire);
 	}
 }
