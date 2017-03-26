@@ -69,7 +69,7 @@ public class SpellFireball extends EntitySpellBase
 	@Override
 	public String getTravelParticleName()
 	{
-		return "travel";
+		return "fire";
 	}
 	
 	@Override
@@ -81,7 +81,7 @@ public class SpellFireball extends EntitySpellBase
 	@Override
 	public String getImpactParticleName()
 	{
-		return "impact";
+		return "fire";
 	}
 	
 	@Override
