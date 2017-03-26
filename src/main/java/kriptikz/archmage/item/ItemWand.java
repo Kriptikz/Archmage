@@ -13,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -70,7 +69,7 @@ public class ItemWand extends ItemBase
 	{	
 		if (count <= 975)
 		{
-			if ( count % 3 == 0)
+			if ( count % 6 == 0)
 			{
 				if (player.world.isRemote)
 				{
@@ -89,18 +88,15 @@ public class ItemWand extends ItemBase
 							player.posZ + (particleVector.zCoord * particleDistance));
 
 					ISpellData spellData = player.getCapability(SpellDataProvider.SPELL_DATA, null);
-					if (spellData.getSelectedSpell() == 0)
+					
+					switch(spellData.getSelectedSpell())
 					{
-						/*player.world.spawnParticle(EnumParticleTypes.FLAME, particlePos.xCoord, particlePos.yCoord,
-								particlePos.zCoord, 0.0D, 0.0D, 0.0D, new int[0]);*/
-						Archmage.proxy.spawnParticle("charge", 1, particlePos.xCoord, particlePos.yCoord, particlePos.zCoord, 0.0D, 0.0D, 0.0D);
+						case 0:
+							Archmage.proxy.spawnParticle("fire", 1, particlePos.xCoord, particlePos.yCoord, particlePos.zCoord, 0.0D, 0.0D, 0.0D);
+							break;
+						default:
+							Archmage.proxy.spawnParticle("default", 1, particlePos.xCoord, particlePos.yCoord, particlePos.zCoord, 0.0D, 0.0D, 0.0D);
 					}
-					else
-					{
-						player.world.spawnParticle(EnumParticleTypes.SPELL_WITCH, particlePos.xCoord,
-								particlePos.yCoord, particlePos.zCoord, 0.0D, 0.0D, 0.0D, new int[0]);
-					}
-
 				}			
 			}
 		}
