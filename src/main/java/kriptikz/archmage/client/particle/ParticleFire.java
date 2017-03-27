@@ -9,6 +9,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
+/**
+ * Custom fire particle for Archmage mod.
+ * 
+ * @author kriptikz
+ *
+ */
 public class ParticleFire extends Particle
 {
 	private final ResourceLocation fire = new ResourceLocation(Reference.MODID, "particle/fire");

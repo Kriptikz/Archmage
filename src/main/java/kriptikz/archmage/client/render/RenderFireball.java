@@ -11,6 +11,12 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
+/**
+ * Render for Fireball entity.
+ * 
+ * @author kriptikz
+ *
+ */
 public class RenderFireball extends Render<SpellFireball>
 {
 	private ResourceLocation texture = new ResourceLocation(Reference.MODID, "textures/entity/projectiles/fireball.png");

@@ -19,7 +19,8 @@ public class ParticleDefault extends Particle
 	//private final float iceScale;
 	
 	/**
-	 * A test particle that all particles default to if missing.
+	 * A default particle that all particles default to if missing.
+	 * 
 	 * @param version
 	 * @param worldIn
 	 * @param xCoordIn
