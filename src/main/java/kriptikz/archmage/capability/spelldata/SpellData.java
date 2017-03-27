@@ -8,7 +8,7 @@ public class SpellData implements ISpellData
 	/**
 	 * The players currently selected spell.
 	 */
-	private int selectedSpell = 0;
+	private EnumSpellId selectedSpell = EnumSpellId.FIREBALL;
 	
 	/**
 	 * The players teleport destination for the teleport spell.
@@ -41,13 +41,13 @@ public class SpellData implements ISpellData
 	 */
 
 	@Override
-	public void setSelectedSpell(int newSelectedSpell)
+	public void setSelectedSpell(EnumSpellId newSelectedSpell)
 	{
 		this.selectedSpell = newSelectedSpell;
 	}
 
 	@Override
-	public int getSelectedSpell()
+	public EnumSpellId getSelectedSpell()
 	{
 		return this.selectedSpell;
 	}

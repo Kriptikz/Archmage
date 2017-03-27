@@ -1,6 +1,7 @@
 package kriptikz.archmage.item;
 
 import kriptikz.archmage.Archmage;
+import kriptikz.archmage.capability.spelldata.EnumSpellId;
 import kriptikz.archmage.capability.spelldata.ISpellData;
 import kriptikz.archmage.capability.spelldata.SpellDataProvider;
 import kriptikz.archmage.entity.EntitySpellBase;
@@ -38,13 +39,16 @@ public class ItemWand extends ItemBase
 		{	
 			if (!worldIn.isRemote)
 			{
-				ISpellBase spell = null;
+				ISpellBase spell;
 				ISpellData spellData = entityLiving.getCapability(SpellDataProvider.SPELL_DATA, null);
 				
 				switch(spellData.getSelectedSpell())
 				{
-					case 0:
+					case FIREBALL:
 						spell = new SpellFireball(worldIn, entityLiving);
+						break;
+					default:
+						spell = null;
 						break;
 					
 				}
@@ -91,7 +95,7 @@ public class ItemWand extends ItemBase
 					
 					switch(spellData.getSelectedSpell())
 					{
-						case 0:
+						case FIREBALL:
 							Archmage.proxy.spawnParticle("fire", 1, particlePos.xCoord, particlePos.yCoord, particlePos.zCoord, 0.0D, 0.0D, 0.0D);
 							break;
 						default:

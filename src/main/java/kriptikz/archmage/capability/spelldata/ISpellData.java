@@ -16,14 +16,14 @@ public interface ISpellData
 	 * 
 	 * @param newSelectedSpell The new players selected spell value
 	 */
-	public void setSelectedSpell(int newSelectedSpell);
+	public void setSelectedSpell(EnumSpellId newSelectedSpell);
 	
 	/**
 	 * Get the players currently selected spell.
 	 * 
 	 * @return The players currently selected spell.
 	 */
-	public int getSelectedSpell();
+	public EnumSpellId getSelectedSpell();
 	
 	/**
 	 * Set whether the player has learned the spell.
