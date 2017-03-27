@@ -45,7 +45,7 @@ public class SpellDataStorage implements IStorage<ISpellData>
 		}
 		
 		// Write players selected spell to NBT.
-		NBTData.setInteger("selectedSpell", instance.getSelectedSpell());
+		NBTData.setInteger("selectedSpell", instance.getSelectedSpell().getId());
 		
 		// Write spell data arrays to NBT.
 		for (EnumSpellId spellId : EnumSpellId.values())

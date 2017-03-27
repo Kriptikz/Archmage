@@ -1,7 +1,6 @@
 package kriptikz.archmage.item;
 
 import kriptikz.archmage.Archmage;
-import kriptikz.archmage.capability.spelldata.EnumSpellId;
 import kriptikz.archmage.capability.spelldata.ISpellData;
 import kriptikz.archmage.capability.spelldata.SpellDataProvider;
 import kriptikz.archmage.entity.EntitySpellBase;

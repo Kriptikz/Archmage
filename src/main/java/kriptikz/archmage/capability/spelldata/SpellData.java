@@ -36,9 +36,17 @@ public class SpellData implements ISpellData
 				  spellWarp = {0, 1, 0, 100, 1},
 				  spellTeleport = {0, 1, 0, 100, 1};
 	
-	/**
-	 * The players TeleportDestination for spellTeleport
-	 */
+	@Override
+	public void setSelectedSpell(int newSelectedSpell)
+	{
+		for (EnumSpellId spellId : EnumSpellId.values())
+		{
+			if (spellId.getId() == newSelectedSpell)
+			{
+				this.selectedSpell = spellId;
+			}
+		}
+	}
 
 	@Override
 	public void setSelectedSpell(EnumSpellId newSelectedSpell)

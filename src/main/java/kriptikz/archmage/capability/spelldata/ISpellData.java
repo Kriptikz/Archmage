@@ -12,7 +12,14 @@ import kriptikz.archmage.spell.TeleportDestination;
 public interface ISpellData
 {	
 	/**
-	 * Set the players currently selected spell.
+	 * Set the players currently selected spell using an integer rather than {@link EnumSpellId}.
+	 * 
+	 * @param newSelectedSpell
+	 */
+	public void setSelectedSpell(int newSelectedSpell);
+	
+	/**
+	 * Set the players currently selected spell using {@link EnumSpellId}.
 	 * 
 	 * @param newSelectedSpell The new players selected spell value
 	 */
