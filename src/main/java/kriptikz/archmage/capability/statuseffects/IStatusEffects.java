@@ -14,7 +14,7 @@ public interface IStatusEffects
 	 * @param effectId The id of the status effect
 	 * @param newisActive The new isActive value
 	 */
-	public void setIsActive(int effectId, int newisActive);
+	public void setIsActive(EnumStatusEffectId effectId, int newisActive);
 	
 	/**
 	 * Get whether the status effect is active.
@@ -22,7 +22,7 @@ public interface IStatusEffects
 	 * @param effectId The id of the status effect.
 	 * @return Whether the status effect is active.
 	 */
-	public int getIsActive(int effectId);
+	public int getIsActive(EnumStatusEffectId effectId);
 	
 	/**
 	 * Set the amount of ticks the status effect has been applied for.
@@ -30,7 +30,7 @@ public interface IStatusEffects
 	 * @param effectId The id of the status effect
 	 * @param newTicks The amount of ticks the status effect has been applied for
 	 */
-	public void setTicks(int effectId, int newTicks);
+	public void setTicks(EnumStatusEffectId effectId, int newTicks);
 	
 	/**
 	 * Get the amount of ticks the status effect has been applied for.
@@ -38,7 +38,7 @@ public interface IStatusEffects
 	 * @param effectId The id of the status effect
 	 * @return The amount of ticks the status effect has been applied for
 	 */
-	public int getTicks(int effectId);
+	public int getTicks(EnumStatusEffectId effectId);
 	
 	/**
 	 * Set the duration the status effect should be applied for.
@@ -46,7 +46,7 @@ public interface IStatusEffects
 	 * @param effectId The id of the status effect
 	 * @param newDuration The new duration of the status effect
 	 */
-	public void setDuration(int effectId, int newDuration);
+	public void setDuration(EnumStatusEffectId effectId, int newDuration);
 	
 	/**
 	 * Get the duration the staus effect should applied for.
@@ -54,7 +54,7 @@ public interface IStatusEffects
 	 * @param effectId The id of the status effect
 	 * @return The new duration the status effect should be applied for
 	 */
-	public int getDuration(int effectId);
+	public int getDuration(EnumStatusEffectId effectId);
 	
 	/**
 	 * Set the amp of the status effect.
@@ -62,7 +62,7 @@ public interface IStatusEffects
 	 * @param effectId The id of the status effect
 	 * @param newAmp The new amp of the status effect
 	 */
-	public void setAmp(int effectId, int newAmp);
+	public void setAmp(EnumStatusEffectId effectId, int newAmp);
 	
 	/**
 	 * Get the amp of the status effect.
@@ -70,7 +70,7 @@ public interface IStatusEffects
 	 * @param effectId The id of the status effect
 	 * @return The amp of the status effect
 	 */
-	public int getAmp(int effectId);
+	public int getAmp(EnumStatusEffectId effectId);
 	
 	/**
 	 * Set status effect data from status effect array, by id.
@@ -78,7 +78,7 @@ public interface IStatusEffects
 	 * @param effectId The id of the status effect
 	 * @param statusEffect The array of the new status effect data
 	 */
-	public void setStatusEffectFromId(int effectId, int[] statusEffect);
+	public void setStatusEffectFromId(EnumStatusEffectId effectId, int[] statusEffect);
 	
 	/**
 	 * Get the status effect data from status effect array, by id.
@@ -86,5 +86,5 @@ public interface IStatusEffects
 	 * @param effectId The id of the status effect
 	 * @return The integer array of the status effect data
 	 */
-	public int[] getStatusEffectFromId(int effectId);
+	public int[] getStatusEffectFromId(EnumStatusEffectId effectId);
 }

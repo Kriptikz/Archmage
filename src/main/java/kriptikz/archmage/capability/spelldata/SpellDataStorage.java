@@ -48,9 +48,9 @@ public class SpellDataStorage implements IStorage<ISpellData>
 		NBTData.setInteger("selectedSpell", instance.getSelectedSpell());
 		
 		// Write spell data arrays to NBT.
-		for (int i = 0; i < SpellData.NUMBER_OF_SPELLS; i++)
+		for (EnumSpellId spellId : EnumSpellId.values())
 		{
-			NBTData.setIntArray("spell_" + i, instance.getSpellFromId(i));
+			NBTData.setIntArray("spell_" + spellId.toString().toLowerCase(), instance.getSpellFromId(spellId));
 		}
 		
 		return NBTData;
@@ -79,9 +79,9 @@ public class SpellDataStorage implements IStorage<ISpellData>
 		instance.setSelectedSpell(NBTData.getInteger("selectedSpell"));
 		
 		// Read spell data arrays from NBT.
-		for (int i = 0; i < SpellData.NUMBER_OF_SPELLS; i++)
+		for (EnumSpellId spellId : EnumSpellId.values())
 		{
-			instance.setSpellFromId(i, NBTData.getIntArray("spell_" + i));
+			instance.setSpellFromId(spellId, NBTData.getIntArray("spell_" + spellId.toString().toLowerCase()));
 		}
 	}
 

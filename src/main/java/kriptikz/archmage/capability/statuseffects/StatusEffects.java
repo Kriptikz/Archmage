@@ -1,33 +1,14 @@
 package kriptikz.archmage.capability.statuseffects;
 
+import kriptikz.archmage.Reference;
+
 /**
  * Default implementation of {@link IStatusEffects} capability.
  * @author kriptikz
  *
  */
 public class StatusEffects implements IStatusEffects
-{
-	/**
-	 * Constants used as array index's for easier reference into status effects array.
-	 */
-	public final int IS_ACTIVE = 0;
-	public final int TICKS = 1;
-	public final int DURATION = 2;
-	public final int AMP = 3;
-	
-	public final int TRUE = 1;
-	public final int FALSE = 0;
-	
-	/**
-	 * Constants used for easier reference of spells by Id.
-	 */
-	public static final int STUNNED = 0, LEVITATING = 1;
-	
-	/**
-	 * Constant used for number of status effects implemented.
-	 */
-	public static final int NUMBER_OF_STATUS_EFFECTS = 2;
-	
+{	
 	/**
 	 * An array to temporarily set to a status effects array in order to get/set status effect data.
 	 * Index: [0] = isActive, [1] = ticks, [2] = duration, [3] = amp
@@ -42,78 +23,78 @@ public class StatusEffects implements IStatusEffects
 	private int[] levitating = {0, 0, 0, 0};
 
 	@Override
-	public void setIsActive(int effectId, int newIsActive)
+	public void setIsActive(EnumStatusEffectId effectId, int newIsActive)
 	{
 		setTemp(effectId);
 		
-		if (newIsActive == TRUE)
+		if (newIsActive == Reference.TRUE)
 		{
-			this.temp[IS_ACTIVE] = TRUE;
+			this.temp[EnumStatusEffectData.IS_ACTIVE.getIndexValue()] = Reference.TRUE;
 		}
 		else
 		{
-			this.temp[IS_ACTIVE] = FALSE;
+			this.temp[EnumStatusEffectData.IS_ACTIVE.getIndexValue()] = Reference.FALSE;
 		}
 	}
 	
 	@Override
-	public int getIsActive(int effectId)
+	public int getIsActive(EnumStatusEffectId effectId)
 	{
 		setTemp(effectId);
 		
-		return this.temp[IS_ACTIVE];
+		return this.temp[EnumStatusEffectData.IS_ACTIVE.getIndexValue()];
 	}
 	
 	@Override
-	public void setTicks(int effectId, int newTicks)
+	public void setTicks(EnumStatusEffectId effectId, int newTicks)
 	{
 		setTemp(effectId);
 		
-		this.temp[TICKS] = newTicks;
+		this.temp[EnumStatusEffectData.TICKS.getIndexValue()] = newTicks;
 	}
 
 	@Override
-	public int getTicks(int effectId)
+	public int getTicks(EnumStatusEffectId effectId)
 	{
 		setTemp(effectId);
 		
-		return this.temp[TICKS];
+		return this.temp[EnumStatusEffectData.TICKS.getIndexValue()];
 	}
 
 	@Override
-	public void setDuration(int effectId, int newDuration)
+	public void setDuration(EnumStatusEffectId effectId, int newDuration)
 	{
 		setTemp(effectId);
 		
-		this.temp[DURATION] = newDuration;
+		this.temp[EnumStatusEffectData.DURATION.getIndexValue()] = newDuration;
 	}
 
 	@Override
-	public int getDuration(int effectId)
+	public int getDuration(EnumStatusEffectId effectId)
 	{
 		setTemp(effectId);
 		
-		return this.temp[DURATION];
+		return this.temp[EnumStatusEffectData.DURATION.getIndexValue()];
 	}
 
 	@Override
-	public void setAmp(int effectId, int newAmp)
+	public void setAmp(EnumStatusEffectId effectId, int newAmp)
 	{
 		setTemp(effectId);
 		
-		this.temp[AMP] = newAmp;
+		this.temp[EnumStatusEffectData.AMP.getIndexValue()] = newAmp;
 	}
 
 	@Override
-	public int getAmp(int effectId)
+	public int getAmp(EnumStatusEffectId effectId)
 	{
 		setTemp(effectId);
 		
-		return this.temp[AMP];
+		return this.temp[EnumStatusEffectData.AMP.getIndexValue()];
 	}
 	
 	@Override
-	public void setStatusEffectFromId(int effectId, int[] statusEffect)
+	public void setStatusEffectFromId(EnumStatusEffectId effectId, int[] statusEffect)
 	{
 		setTemp(effectId);
 		
@@ -121,7 +102,7 @@ public class StatusEffects implements IStatusEffects
 	}
 
 	@Override
-	public int[] getStatusEffectFromId(int effectId)
+	public int[] getStatusEffectFromId(EnumStatusEffectId effectId)
 	{
 		switch(effectId)
 		{
@@ -137,7 +118,7 @@ public class StatusEffects implements IStatusEffects
 	 * 
 	 * @param statusEffectId The id of the status effect
 	 */
-	public void setTemp(int effectId)
+	public void setTemp(EnumStatusEffectId effectId)
 	{
 		this.temp = getStatusEffectFromId(effectId);
 	}

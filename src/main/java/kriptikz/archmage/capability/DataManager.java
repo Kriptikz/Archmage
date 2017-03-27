@@ -1,9 +1,11 @@
 package kriptikz.archmage.capability;
 
+import kriptikz.archmage.Reference;
 import kriptikz.archmage.capability.archmagelevel.IArchmageLevel;
 import kriptikz.archmage.capability.mana.IMana;
+import kriptikz.archmage.capability.spelldata.EnumSpellData;
+import kriptikz.archmage.capability.spelldata.EnumSpellId;
 import kriptikz.archmage.capability.spelldata.ISpellData;
-import kriptikz.archmage.capability.spelldata.SpellData;
 
 /**
  * A class of static methods used to increase/decrease mana, burnout, archmage xp or level, spell xp or level.
@@ -134,9 +136,9 @@ public class DataManager
 	 * @param spellId The id of the spell to increase xp for
 	 * @param amount The amount to increase the players spell xp by
 	 */
-	public static void increaseSpellXp(ISpellData spellData, int spellId, int amount)
+	public static void increaseSpellXp(ISpellData spellData, EnumSpellId spellId, int amount)
 	{
-		if (spellData.getSpellFromId(spellId)[SpellData.SHOULD_GAIN_XP] == SpellData.TRUE)
+		if (spellData.getSpellFromId(spellId)[EnumSpellData.SHOULD_GAIN_XP.getIndexValue()] == Reference.TRUE)
 		{
 			if (spellData.getSpellXp(spellId) < spellData.getSpellLevelMaxXp(spellId))
 			{
@@ -158,7 +160,7 @@ public class DataManager
 	 * @param spellId The id of the spell to increase level for
 	 * @param amount The amount to increase the players spell level by
 	 */
-	public static void increaseSpellLevel(ISpellData spellData, int spellId, int amount)
+	public static void increaseSpellLevel(ISpellData spellData, EnumSpellId spellId, int amount)
 	{
 		spellData.setSpellLevel(spellId, spellData.getSpellLevel(spellId) + amount);
 	}

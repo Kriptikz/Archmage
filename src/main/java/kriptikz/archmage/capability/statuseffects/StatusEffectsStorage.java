@@ -20,9 +20,9 @@ public class StatusEffectsStorage implements IStorage<IStatusEffects>
 		NBTTagCompound NBTData = new NBTTagCompound();
 		
 		// Write status effect arrays to NBT.
-		for (int i = 0; i < StatusEffects.NUMBER_OF_STATUS_EFFECTS; i++)
+		for (EnumStatusEffectId effectId : EnumStatusEffectId.values())
 		{
-			NBTData.setIntArray("status_effect_" + i, instance.getStatusEffectFromId(i));
+			NBTData.setIntArray("status_effect_" + effectId.toString().toLowerCase(), instance.getStatusEffectFromId(effectId));
 		}
 		
 		return NBTData;
@@ -34,9 +34,9 @@ public class StatusEffectsStorage implements IStorage<IStatusEffects>
 		NBTTagCompound NBTData = (NBTTagCompound) nbt;
 		
 		// Read status effect arrays from NBT.
-		for (int i = 0; i < StatusEffects.NUMBER_OF_STATUS_EFFECTS; i++)
+		for (EnumStatusEffectId effectId : EnumStatusEffectId.values())
 		{
-			instance.setStatusEffectFromId(i, NBTData.getIntArray("status_effect_" + i));
+			instance.setStatusEffectFromId(effectId, NBTData.getIntArray("status_effect_" + effectId.toString().toLowerCase()));
 		}
 	}
 
