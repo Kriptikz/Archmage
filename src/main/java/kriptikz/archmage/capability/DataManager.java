@@ -1,11 +1,9 @@
 package kriptikz.archmage.capability;
 
-import kriptikz.archmage.Reference;
 import kriptikz.archmage.capability.archmagelevel.IArchmageLevel;
 import kriptikz.archmage.capability.mana.IMana;
-import kriptikz.archmage.capability.spelldata.EnumSpellData;
-import kriptikz.archmage.capability.spelldata.EnumSpellId;
 import kriptikz.archmage.capability.spelldata.ISpellData;
+import kriptikz.archmage.capability.spelldata.Spell;
 
 /**
  * A class of static methods used to increase/decrease mana, burnout, archmage xp or level, spell xp or level.
@@ -133,22 +131,24 @@ public class DataManager
 	 * Increase the players spell xp. Spell level will also increase if appropriate.
 	 * 
 	 * @param spellData The players {@link ISpellData} capabilty
-	 * @param spellId The id of the spell to increase xp for
+	 * @param spellName The name of the spell to increase xp for
 	 * @param amount The amount to increase the players spell xp by
 	 */
-	public static void increaseSpellXp(ISpellData spellData, EnumSpellId spellId, int amount)
+	public static void increaseSpellXp(Spell spell, int amount)
 	{
-		if (spellData.getSpellFromId(spellId)[EnumSpellData.SHOULD_GAIN_XP.getIndexValue()] == Reference.TRUE)
+		//Spell spell = spellData.getSpell(spellName);
+		
+		if (spell.getShouldGainXp())
 		{
-			if (spellData.getSpellXp(spellId) < spellData.getSpellLevelMaxXp(spellId))
+			if (spell.getXp() < spell.getLevelMaxXp())
 			{
-				spellData.setSpellXp(spellId, spellData.getSpellXp(spellId) + amount);
+				spell.setXp(spell.getXp() + amount);
 			}
-			else if (spellData.getSpellXp(spellId) >= spellData.getSpellLevelMaxXp(spellId))
+			else if (spell.getXp() >= spell.getLevelMaxXp())
 			{
-				increaseSpellLevel(spellData, spellId, 1);
-				spellData.setSpellXp(spellId, (spellData.getSpellXp(spellId) + amount) - spellData.getSpellLevelMaxXp(spellId));
-				spellData.setSpellLevelMaxXp(spellId, (int) (spellData.getSpellLevelMaxXp(spellId) * 1.3));
+				increaseSpellLevel(spell, 1);
+				spell.setXp((spell.getXp() + amount) - spell.getLevelMaxXp());
+				spell.setLevelMaxXp((int) (spell.getLevelMaxXp() * 1.3));
 			}
 		}
 	}
@@ -160,8 +160,8 @@ public class DataManager
 	 * @param spellId The id of the spell to increase level for
 	 * @param amount The amount to increase the players spell level by
 	 */
-	public static void increaseSpellLevel(ISpellData spellData, EnumSpellId spellId, int amount)
+	public static void increaseSpellLevel(Spell spell, int amount)
 	{
-		spellData.setSpellLevel(spellId, spellData.getSpellLevel(spellId) + amount);
+		spell.setLevel(spell.getLevel() + amount);
 	}
 }
