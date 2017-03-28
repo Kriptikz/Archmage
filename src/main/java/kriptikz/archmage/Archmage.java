@@ -6,9 +6,9 @@ import kriptikz.archmage.capability.archmagelevel.IArchmageLevel;
 import kriptikz.archmage.capability.mana.IMana;
 import kriptikz.archmage.capability.mana.Mana;
 import kriptikz.archmage.capability.mana.ManaStorage;
-import kriptikz.archmage.capability.spelldata.ISpellData;
-import kriptikz.archmage.capability.spelldata.SpellData;
-import kriptikz.archmage.capability.spelldata.SpellDataStorage;
+import kriptikz.archmage.capability.spelldata.ISpells;
+import kriptikz.archmage.capability.spelldata.Spells;
+import kriptikz.archmage.capability.spelldata.SpellsStorage;
 import kriptikz.archmage.capability.statuseffects.IStatusEffects;
 import kriptikz.archmage.capability.statuseffects.StatusEffects;
 import kriptikz.archmage.capability.statuseffects.StatusEffectsStorage;
@@ -48,7 +48,7 @@ public class Archmage
 		// Register capabilities
 		CapabilityManager.INSTANCE.register(IArchmageLevel.class, new ArchmageLevelStorage(), ArchmageLevel.class);
 		CapabilityManager.INSTANCE.register(IMana.class, new ManaStorage(), Mana.class);
-		CapabilityManager.INSTANCE.register(ISpellData.class, new SpellDataStorage(), SpellData.class);
+		CapabilityManager.INSTANCE.register(ISpells.class, new SpellsStorage(), Spells.class);
 		CapabilityManager.INSTANCE.register(IStatusEffects.class, new StatusEffectsStorage(), StatusEffects.class);
 		
 		// Register network wrapper
