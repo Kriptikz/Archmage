@@ -14,11 +14,11 @@ import net.minecraftforge.common.capabilities.Capability.IStorage;
  * @author kriptikz
  *
  */
-public class SpellDataStorage implements IStorage<ISpellData>
+public class SpellsStorage implements IStorage<ISpells>
 {
 
 	@Override
-	public NBTBase writeNBT(Capability<ISpellData> capability, ISpellData instance, EnumFacing side)
+	public NBTBase writeNBT(Capability<ISpells> capability, ISpells instance, EnumFacing side)
 	{
 		NBTTagCompound NBTData = new NBTTagCompound();
 		
@@ -48,20 +48,20 @@ public class SpellDataStorage implements IStorage<ISpellData>
 		NBTData.setInteger("selectedSpell", instance.getSelectedSpell().getId());
 		
 		// Write spell data to NBT.
-		for (Spell spell : instance.getSpells())
+		for (SpellData spellData : instance.getSpells())
 		{
-			NBTData.setBoolean(spell.getName().toLowerCase() + "_is_learned", spell.getIsLearned());
-			NBTData.setInteger(spell.getName().toLowerCase() + "_level", spell.getLevel());
-			NBTData.setInteger(spell.getName().toLowerCase() + "_xp", spell.getXp());
-			NBTData.setInteger(spell.getName().toLowerCase() + "_level_max_xp", spell.getLevelMaxXp());
-			NBTData.setBoolean(spell.getName().toLowerCase() + "_should_gain_xp", spell.getShouldGainXp());
+			NBTData.setBoolean(spellData.getSpell().getName() + "_is_learned", spellData.getIsLearned());
+			NBTData.setInteger(spellData.getSpell().getName() + "_level", spellData.getLevel());
+			NBTData.setInteger(spellData.getSpell().getName() + "_xp", spellData.getXp());
+			NBTData.setInteger(spellData.getSpell().getName() + "_level_max_xp", spellData.getLevelMaxXp());
+			NBTData.setBoolean(spellData.getSpell().getName() + "_should_gain_xp", spellData.getShouldGainXp());
 		}
 		
 		return NBTData;
 	}
 
 	@Override
-	public void readNBT(Capability<ISpellData> capability, ISpellData instance, EnumFacing side, NBTBase nbt)
+	public void readNBT(Capability<ISpells> capability, ISpells instance, EnumFacing side, NBTBase nbt)
 	{
 		NBTTagCompound NBTData = (NBTTagCompound) nbt;
 
@@ -83,9 +83,13 @@ public class SpellDataStorage implements IStorage<ISpellData>
 		instance.setSelectedSpell(NBTData.getInteger("selectedSpell"));
 		
 		// Read spell data from NBT.		
-		for (Spell spell : instance.getSpells())
+		for (SpellData spellData : instance.getSpells())
 		{
-			spell.setIsLearned(NBTData.getBoolean(spell.getName().toString().toLowerCase() + "_is_learned"));
+			spellData.setIsLearned(NBTData.getBoolean(spellData.getSpell().getName() + "_is_learned"));
+			spellData.setLevel(NBTData.getInteger(spellData.getSpell().getName() + "_level"));
+			spellData.setXp(NBTData.getInteger(spellData.getSpell().getName() + "_xp"));
+			spellData.setLevelMaxXp(NBTData.getInteger(spellData.getSpell().getName() + "_level_max_xp"));
+			spellData.setShouldGainXp(NBTData.getBoolean(spellData.getSpell().getName() + "_should_gain_xp"));
 		}
 	}
 

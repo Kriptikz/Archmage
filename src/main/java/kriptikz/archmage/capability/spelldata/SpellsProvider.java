@@ -12,38 +12,38 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
  * @author kriptikz
  *
  */
-public class SpellDataProvider implements ICapabilitySerializable<NBTTagCompound>
+public class SpellsProvider implements ICapabilitySerializable<NBTTagCompound>
 {
-	@CapabilityInject(ISpellData.class)
-	public static final Capability<ISpellData> SPELL_DATA = null;
+	@CapabilityInject(ISpells.class)
+	public static final Capability<ISpells> SPELLS = null;
 	
 	/**
 	 * Default instance of {@link ISpellData} capability.
 	 */
-	private ISpellData instance = SPELL_DATA.getDefaultInstance();
+	private ISpells instance = SPELLS.getDefaultInstance();
 	
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing)
 	{
-		return capability == SPELL_DATA;
+		return capability == SPELLS;
 	}
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing)
 	{
-		return capability == SPELL_DATA ? SPELL_DATA.<T>cast(this.instance) : null;
+		return capability == SPELLS ? SPELLS.<T>cast(this.instance) : null;
 	}
 
 	@Override
 	public NBTTagCompound serializeNBT()
 	{
-		return (NBTTagCompound) SPELL_DATA.getStorage().writeNBT(SPELL_DATA, instance, null);
+		return (NBTTagCompound) SPELLS.getStorage().writeNBT(SPELLS, instance, null);
 	}
 
 	@Override
 	public void deserializeNBT(NBTTagCompound nbt)
 	{
-		SPELL_DATA.getStorage().readNBT(SPELL_DATA, instance, null, nbt);
+		SPELLS.getStorage().readNBT(SPELLS, instance, null, nbt);
 	}
 
 }
