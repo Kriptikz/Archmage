@@ -7,8 +7,8 @@ import javax.annotation.Nullable;
 
 import io.netty.buffer.ByteBuf;
 import kriptikz.archmage.Archmage;
-import kriptikz.archmage.capability.spelldata.ISpellData;
-import kriptikz.archmage.capability.spelldata.SpellDataProvider;
+import kriptikz.archmage.capability.spelldata.ISpells;
+import kriptikz.archmage.capability.spelldata.SpellsProvider;
 import kriptikz.archmage.spell.ISpellBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -40,7 +40,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 	/**
 	 * The caster's {@link ISpellData} capability.
 	 */
-	private ISpellData spellData;
+	private ISpells spells;
 	
 	/**
 	 * Ticks the spell has been in the air for.
@@ -58,7 +58,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 		
 		this.casterRef = new WeakReference<EntityLivingBase>(caster);
 		this.casterId = caster.getUniqueID();
-		this.setSpellData(caster);
+		this.setSpells(caster);
 		this.setPositionAndDirection(caster);
 	}
 	
@@ -122,7 +122,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
     		return;
     	}
     	
-    	this.spellData = caster.getCapability(SpellDataProvider.SPELL_DATA, null);
+    	this.spells = caster.getCapability(SpellsProvider.SPELLS, null);
     	
     	if (((caster == null || !caster.isDead) || this.world.isRemote && this.world.isBlockLoaded(new BlockPos(this))))
         {
@@ -366,17 +366,17 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
      * 
      * @return {@link ISpellData} capability of the player
      */
-	public ISpellData getSpellData()
+	public ISpells getSpells()
 	{
-		return spellData;
+		return this.spells;
 	}
 
 	/**
 	 * Set the spell data from the casters {@link ISpellData} capability.
 	 * @param caster
 	 */
-	public void setSpellData(EntityLivingBase caster)
+	public void setSpells(EntityLivingBase caster)
 	{
-		this.spellData = caster.getCapability(SpellDataProvider.SPELL_DATA, null);
+		this.spells = caster.getCapability(SpellsProvider.SPELLS, null);
 	}
 }
