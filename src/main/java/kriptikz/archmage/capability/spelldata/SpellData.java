@@ -52,7 +52,7 @@ public class SpellData
 	 */
 	public boolean getIsLearned()
 	{
-		return isLearned;
+		return this.isLearned;
 	}
 	
 	/**
@@ -86,7 +86,7 @@ public class SpellData
 	 */
 	public int getLevel()
 	{
-		return level;
+		return this.level;
 	}
 	
 	/**
@@ -106,7 +106,7 @@ public class SpellData
 	 */
 	public int getXp()
 	{
-		return xp;
+		return this.xp;
 	}
 	
 	/**
@@ -125,7 +125,7 @@ public class SpellData
 	 */
 	public int getLevelMaxXp()
 	{
-		return levelMaxXp;
+		return this.levelMaxXp;
 	}
 	
 	/**
@@ -145,6 +145,6 @@ public class SpellData
 	 */
 	public boolean getShouldGainXp()
 	{
-		return shouldGainXp;
+		return this.shouldGainXp;
 	}
 }
