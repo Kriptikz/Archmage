@@ -1,87 +1,150 @@
 package kriptikz.archmage.capability.spelldata;
 
-import kriptikz.archmage.spell.TeleportDestination;
-
-public class SpellData implements ISpellData
-{	
-	/**
-	 * The players currently selected spell.
-	 */
-	private SpellName selectedSpell = SpellName.FIREBALL;
+/**
+ * Spell data associated with each individual spell.
+ * 
+ * @author kriptikz
+ *
+ */
+public class SpellData
+{
+	private final EnumSpells spell;
+	private boolean isLearned = false;
+	private int level = 1;
+	private int xp = 0;
+	private int levelMaxXp = 100;
+	private boolean shouldGainXp = true;
 	
 	/**
-	 * The players teleport destination for the teleport spell.
+	 * Constructor for {@link Spell}.
+	 * 
+	 * @param name an enum from {@link SpellName}
 	 */
-	private TeleportDestination teleportDestination;
-	
-	/**
-	 * {@link Spell} object array of spells to hold individual spell data.
-	 */
-	private Spell[] spells = new Spell[] { 
-			new Spell(SpellName.FIREBALL),
-			new Spell(SpellName.STUN),
-			new Spell(SpellName.SELF_HEAL),
-			new Spell(SpellName.HEAL_PROJECTILE),
-			new Spell(SpellName.DIZZIFY),
-			new Spell(SpellName.SLOW),
-			new Spell(SpellName.DUMMY_CLONE),
-			new Spell(SpellName.LEVITATE),
-			new Spell(SpellName.WARP),
-			new Spell(SpellName.TELEPORT)};
-	
-	@Override
-	public void setSelectedSpell(int newSelectedSpell)
+	public SpellData(EnumSpells spell)
 	{
-		for (SpellName spell : SpellName.values())
+		this.spell = spell;
+	}
+	
+	/**
+	 * Get the enum {@link EnumSpells} of the spell.
+	 * 
+	 * @return {@link SpellName}
+	 */
+	public EnumSpells getSpell()
+	{
+		return this.spell;
+	}
+	
+	/**
+	 * Set whether the spell is learned.
+	 * 
+	 * @param isLearned
+	 */
+	public void setIsLearned(boolean isLearned)
+	{
+		this.isLearned = isLearned;
+	}
+
+	/**
+	 * Get whether the spell is learned.
+	 * 
+	 * @return
+	 */
+	public boolean getIsLearned()
+	{
+		return isLearned;
+	}
+	
+	/**
+	 * Set the spells level. Level cap implemented here.
+	 * 
+	 * @param level
+	 */
+	public void setLevel(int level)
+	{
+		if (level >= 10 )
 		{
-			if (spell.getId() == newSelectedSpell)
-			{
-				this.selectedSpell = spell;
-			}
+			this.level = 10;
+			this.shouldGainXp = false;
+		}
+		else if (level < 10 && level >= 1)
+		{
+			this.level = level;
+			this.shouldGainXp = true;
+		}
+		else
+		{
+			this.level = 1;
+			this.shouldGainXp = true;
 		}
 	}
 
-	@Override
-	public void setSelectedSpell(SpellName newSelectedSpell)
+	/**
+	 * Get the spells level.
+	 * 
+	 * @return
+	 */
+	public int getLevel()
 	{
-		this.selectedSpell = newSelectedSpell;
+		return level;
+	}
+	
+	/**
+	 * Set the current xp of the spell.
+	 * 
+	 * @param xp
+	 */
+	public void setXp(int xp)
+	{
+		this.xp = xp;
 	}
 
-	@Override
-	public SpellName getSelectedSpell()
+	/**
+	 * Get the current xp of the spell.
+	 * 
+	 * @return
+	 */
+	public int getXp()
 	{
-		return this.selectedSpell;
+		return xp;
 	}
 	
-	@Override
-	public Spell[] getSpells()
+	/**
+	 * Set the current levels max xp.
+	 * 
+	 * @param levelMaxXp
+	 */
+	public void setLevelMaxXp(int levelMaxXp)
 	{
-		return this.spells;
-	}
-	
-	@Override
-	public Spell getSpell(SpellName spellName)
-	{
-		for (Spell spell : spells)
-		{
-			if (spell.getName() == spellName.toString())
-			{
-				return spell;
-			}
-		}
-		
-		return null;
-	}
-	
-	@Override
-	public void setTeleportDestination(TeleportDestination newDestination)
-	{
-		this.teleportDestination = newDestination;
+		this.levelMaxXp = levelMaxXp;
 	}
 
-	@Override
-	public TeleportDestination getTeleportDestination()
+	/**
+	 * Get the current levels max xp.
+	 * @return
+	 */
+	public int getLevelMaxXp()
 	{
-		return this.teleportDestination;
+		return levelMaxXp;
+	}
+	
+	/**
+	 * Set whether the spell should gain xp.
+	 * 
+	 * @param shouldGainXp
+	 */
+	public void setShouldGainXp(boolean shouldGainXp)
+	{
+		this.shouldGainXp = shouldGainXp;
+	}
+
+	/**
+	 * Get whether the spell should gain xp.
+	 * 
+	 * @return
+	 */
+	public boolean getShouldGainXp()
+	{
+		return shouldGainXp;
 	}
 }
