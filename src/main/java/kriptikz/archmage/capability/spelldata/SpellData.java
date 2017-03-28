@@ -15,29 +15,6 @@ public class SpellData implements ISpellData
 	private TeleportDestination teleportDestination;
 	
 	/**
-	 * An array to temporarily set to a spell array in order to set/get the spell arrays data.
-	 * Index: [0] = IS_LEARNED, [1] = level, [2] = xp, [3] = levelMaxXp, [4] = shouldGainXp
-	 */
-	//private int[] temp = new int[5];
-	//private Spell temp = null;
-	
-	/**
-	 * {@link Spell} object to hold spell data.
-	 */
-	/*
-	private int[] spellFireball = {0, 1, 0, 100, 1},
-				  spellStunEntity = {0, 1, 0, 100, 1},
-				  spellSelfHeal = {0, 1, 0, 100, 1},
-				  spellHealProjectile = {0, 1, 0, 100, 1},
-				  spellDizzify = {0, 1, 0, 100, 1},
-				  spellSlowEntity = {0, 1, 0, 100, 1},
-				  spellDummyClone = {0, 1, 0, 100, 1},
-				  spellLevitate = {0, 1, 0, 100, 1},
-				  spellWarp = {0, 1, 0, 100, 1},
-				  spellTeleport = {0, 1, 0, 100, 1};
-	*/
-	
-	/**
 	 * {@link Spell} object array of spells to hold individual spell data.
 	 */
 	private Spell[] spells = new Spell[] { 
