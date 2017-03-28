@@ -1,8 +1,8 @@
 package kriptikz.archmage.item;
 
 import kriptikz.archmage.Archmage;
-import kriptikz.archmage.capability.spelldata.ISpellData;
-import kriptikz.archmage.capability.spelldata.SpellDataProvider;
+import kriptikz.archmage.capability.spelldata.ISpells;
+import kriptikz.archmage.capability.spelldata.SpellsProvider;
 import kriptikz.archmage.entity.EntitySpellBase;
 import kriptikz.archmage.spell.ISpellBase;
 import kriptikz.archmage.spell.SpellFireball;
@@ -39,9 +39,9 @@ public class ItemWand extends ItemBase
 			if (!worldIn.isRemote)
 			{
 				ISpellBase spell;
-				ISpellData spellData = entityLiving.getCapability(SpellDataProvider.SPELL_DATA, null);
+				ISpells spells = entityLiving.getCapability(SpellsProvider.SPELLS, null);
 				
-				switch(spellData.getSelectedSpell())
+				switch(spells.getSelectedSpell())
 				{
 					case FIREBALL:
 						spell = new SpellFireball(worldIn, entityLiving);
@@ -90,9 +90,9 @@ public class ItemWand extends ItemBase
 							(player.posY + player.getEyeHeight() + 0.2) + (particleVector.yCoord * particleDistance),
 							player.posZ + (particleVector.zCoord * particleDistance));
 
-					ISpellData spellData = player.getCapability(SpellDataProvider.SPELL_DATA, null);
+					ISpells spells = player.getCapability(SpellsProvider.SPELLS, null);
 					
-					switch(spellData.getSelectedSpell())
+					switch(spells.getSelectedSpell())
 					{
 						case FIREBALL:
 							Archmage.proxy.spawnParticle("fire", 1, particlePos.xCoord, particlePos.yCoord, particlePos.zCoord, 0.0D, 0.0D, 0.0D);
