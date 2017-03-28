@@ -2,8 +2,7 @@ package kriptikz.archmage.capability;
 
 import kriptikz.archmage.capability.archmagelevel.IArchmageLevel;
 import kriptikz.archmage.capability.mana.IMana;
-import kriptikz.archmage.capability.spelldata.ISpellData;
-import kriptikz.archmage.capability.spelldata.Spell;
+import kriptikz.archmage.capability.spelldata.SpellData;
 
 /**
  * A class of static methods used to increase/decrease mana, burnout, archmage xp or level, spell xp or level.
@@ -130,38 +129,34 @@ public class DataManager
 	/**
 	 * Increase the players spell xp. Spell level will also increase if appropriate.
 	 * 
-	 * @param spellData The players {@link ISpellData} capabilty
-	 * @param spellName The name of the spell to increase xp for
+	 * @param spellData The players {@link SpellData} for the specified spell
 	 * @param amount The amount to increase the players spell xp by
 	 */
-	public static void increaseSpellXp(Spell spell, int amount)
-	{
-		//Spell spell = spellData.getSpell(spellName);
-		
-		if (spell.getShouldGainXp())
+	public static void increaseSpellXp(SpellData spellData, int amount)
+	{	
+		if (spellData.getShouldGainXp())
 		{
-			if (spell.getXp() < spell.getLevelMaxXp())
+			if (spellData.getXp() < spellData.getLevelMaxXp())
 			{
-				spell.setXp(spell.getXp() + amount);
+				spellData.setXp(spellData.getXp() + amount);
 			}
-			else if (spell.getXp() >= spell.getLevelMaxXp())
+			else if (spellData.getXp() >= spellData.getLevelMaxXp())
 			{
-				increaseSpellLevel(spell, 1);
-				spell.setXp((spell.getXp() + amount) - spell.getLevelMaxXp());
-				spell.setLevelMaxXp((int) (spell.getLevelMaxXp() * 1.3));
+				increaseSpellLevel(spellData, 1);
+				spellData.setXp((spellData.getXp() + amount) - spellData.getLevelMaxXp());
+				spellData.setLevelMaxXp((int) (spellData.getLevelMaxXp() * 1.3));
 			}
 		}
 	}
 	
 	/**
-	 * Increase the players spell level. Level cap is hardcoded and handled in the capability.
+	 * Increase the players spell level. Level cap is hardcoded and handled in {@link SpellData}.
 	 * 
-	 * @param spellData The players {@link ISpellData} capability
-	 * @param spellId The id of the spell to increase level for
+	 * @param spellData The players {@link SpellData} for the specified spell
 	 * @param amount The amount to increase the players spell level by
 	 */
-	public static void increaseSpellLevel(Spell spell, int amount)
+	public static void increaseSpellLevel(SpellData spellData, int amount)
 	{
-		spell.setLevel(spell.getLevel() + amount);
+		spellData.setLevel(spellData.getLevel() + amount);
 	}
 }
