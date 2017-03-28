@@ -47,10 +47,14 @@ public class SpellDataStorage implements IStorage<ISpellData>
 		// Write players selected spell to NBT.
 		NBTData.setInteger("selectedSpell", instance.getSelectedSpell().getId());
 		
-		// Write spell data arrays to NBT.
-		for (EnumSpellId spellId : EnumSpellId.values())
+		// Write spell data to NBT.
+		for (Spell spell : instance.getSpells())
 		{
-			NBTData.setIntArray("spell_" + spellId.toString().toLowerCase(), instance.getSpellFromId(spellId));
+			NBTData.setBoolean(spell.getName().toLowerCase() + "_is_learned", spell.getIsLearned());
+			NBTData.setInteger(spell.getName().toLowerCase() + "_level", spell.getLevel());
+			NBTData.setInteger(spell.getName().toLowerCase() + "_xp", spell.getXp());
+			NBTData.setInteger(spell.getName().toLowerCase() + "_level_max_xp", spell.getLevelMaxXp());
+			NBTData.setBoolean(spell.getName().toLowerCase() + "_should_gain_xp", spell.getShouldGainXp());
 		}
 		
 		return NBTData;
@@ -78,10 +82,10 @@ public class SpellDataStorage implements IStorage<ISpellData>
 		// Read players selected spell.
 		instance.setSelectedSpell(NBTData.getInteger("selectedSpell"));
 		
-		// Read spell data arrays from NBT.
-		for (EnumSpellId spellId : EnumSpellId.values())
+		// Read spell data from NBT.		
+		for (Spell spell : instance.getSpells())
 		{
-			instance.setSpellFromId(spellId, NBTData.getIntArray("spell_" + spellId.toString().toLowerCase()));
+			spell.setIsLearned(NBTData.getBoolean(spell.getName().toString().toLowerCase() + "_is_learned"));
 		}
 	}
 
