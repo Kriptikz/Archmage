@@ -3,7 +3,6 @@ package kriptikz.archmage.client.particle;
 import kriptikz.archmage.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -15,8 +14,7 @@ import net.minecraft.world.World;
  */
 public class ParticleDefault extends Particle
 {
-	private final ResourceLocation test = new ResourceLocation(Reference.MODID, "particle/default");
-	//private final float iceScale;
+	private final ResourceLocation particleDefault = new ResourceLocation(Reference.MODID, "particle/default");
 	
 	/**
 	 * A default particle that all particles default to if missing.
@@ -30,7 +28,7 @@ public class ParticleDefault extends Particle
 	 * @param ySpeedIn
 	 * @param zSpeedIn
 	 */
-	public ParticleDefault(int version, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn)
+	public ParticleDefault(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn)
 	{
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 
@@ -46,17 +44,7 @@ public class ParticleDefault extends Particle
         this.particleBlue = 1.0F;
         this.particleMaxAge = (int)(8.0D / (Math.random() * 0.8D + 0.2D)) + 4;
         
-        TextureAtlasSprite texture = null;
-        
-        switch(version)
-        {
-			case 1:
-				texture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(test.toString());
-				break;
-			default:		
-        }
-        
-        this.setParticleTexture(texture);
+        this.setParticleTexture(Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(particleDefault.toString()));
 	}
 	
 	@Override

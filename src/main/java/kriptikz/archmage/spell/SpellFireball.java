@@ -2,6 +2,7 @@ package kriptikz.archmage.spell;
 
 import java.util.List;
 
+import kriptikz.archmage.client.particle.EnumParticles;
 import kriptikz.archmage.entity.EntitySpellBase;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -67,27 +68,15 @@ public class SpellFireball extends EntitySpellBase
 	}
 	
 	@Override
-	public String getTravelParticleName()
+	public EnumParticles getTravelParticle()
 	{
-		return "fire";
-	}
-	
-	@Override
-	public int getTravelParticleVersion()
-	{
-		return 1;
+		return EnumParticles.FIRE;
 	}
 
 	@Override
-	public String getImpactParticleName()
+	public EnumParticles getImpactParticle()
 	{
-		return "fire";
-	}
-	
-	@Override
-	public int getImpactParticleVersion()
-	{
-		return 1;
+		return EnumParticles.FIRE;
 	}
 
 }

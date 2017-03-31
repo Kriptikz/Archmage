@@ -4,7 +4,6 @@ import kriptikz.archmage.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.VertexBuffer;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -20,7 +19,7 @@ public class ParticleFire extends Particle
 	private final ResourceLocation fire = new ResourceLocation(Reference.MODID, "particle/fire");
 	private final float fireScale;
 	
-	public ParticleFire(int version, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn)
+	public ParticleFire(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn)
 	{
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 
@@ -37,8 +36,7 @@ public class ParticleFire extends Particle
         this.particleBlue = 1.0F;
         this.particleMaxAge = (int)(8.0D / (Math.random() * 0.8D + 0.2D)) + 4;
         
-        TextureAtlasSprite texture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(fire.toString());
-        this.setParticleTexture(texture);
+        this.setParticleTexture(Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(fire.toString()));
 	}
 	
 	@Override
