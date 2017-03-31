@@ -43,6 +43,9 @@ public class ItemWand extends ItemBase
 				
 				switch(spells.getSelectedSpell())
 				{
+					case NONE:
+						spell = null;
+						break;
 					case FIREBALL:
 						spell = new SpellFireball(worldIn, entityLiving);
 						break;
@@ -94,6 +97,8 @@ public class ItemWand extends ItemBase
 					
 					switch(spells.getSelectedSpell())
 					{
+						case NONE:
+							break;
 						case FIREBALL:
 							Archmage.proxy.spawnParticle("fire", 1, particlePos.xCoord, particlePos.yCoord, particlePos.zCoord, 0.0D, 0.0D, 0.0D);
 							break;

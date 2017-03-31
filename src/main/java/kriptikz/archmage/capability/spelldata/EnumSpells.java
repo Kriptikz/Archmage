@@ -8,8 +8,8 @@ package kriptikz.archmage.capability.spelldata;
  */
 public enum EnumSpells
 {
-	FIREBALL(0), STUN(1), SELF_HEAL(2), HEAL_PROJECTILE(3), DIZZIFY(4), SLOW(5),
-	DUMMY_CLONE(6), LEVITATE(7), WARP(8), TELEPORT(9);
+	NONE(0), FIREBALL(1), STUN(2), SELF_HEAL(3), HEAL_PROJECTILE(4), DIZZIFY(5), SLOW(6),
+	DUMMY_CLONE(7), LEVITATE(8), WARP(9), TELEPORT(10);
 	
 	private int id;
 	
@@ -19,7 +19,7 @@ public enum EnumSpells
 	}
 	
 	/**
-	 * Get the Integer Id of the spell.
+	 * Get the integer Id of the spell.
 	 * 
 	 * @return id
 	 */

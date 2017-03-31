@@ -7,7 +7,7 @@ public class Spells implements ISpells
 	/**
 	 * The players currently selected spell.
 	 */
-	private EnumSpells selectedSpell = null;
+	private EnumSpells selectedSpell = EnumSpells.NONE;
 	
 	/**
 	 * The players teleport destination for the teleport spell.
@@ -27,7 +27,8 @@ public class Spells implements ISpells
 			new SpellData(EnumSpells.DUMMY_CLONE),
 			new SpellData(EnumSpells.LEVITATE),
 			new SpellData(EnumSpells.WARP),
-			new SpellData(EnumSpells.TELEPORT)};
+			new SpellData(EnumSpells.TELEPORT)
+	};
 	
 	@Override
 	public void setSelectedSpell(int newSelectedSpell)
@@ -64,7 +65,7 @@ public class Spells implements ISpells
 	{
 		for (SpellData spellData : spells)
 		{
-			if (spellData.getSpell().getId() == spellName.getId())
+			if (spellData.getId() == spellName.getId())
 			{
 				return spellData;
 			}
