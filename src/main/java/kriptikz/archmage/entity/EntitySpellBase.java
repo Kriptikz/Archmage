@@ -9,6 +9,7 @@ import io.netty.buffer.ByteBuf;
 import kriptikz.archmage.Archmage;
 import kriptikz.archmage.capability.spelldata.ISpells;
 import kriptikz.archmage.capability.spelldata.SpellsProvider;
+import kriptikz.archmage.client.particle.EnumParticles;
 import kriptikz.archmage.spell.ISpellBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -147,13 +148,13 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
             this.posZ += this.motionZ;
             
             
-            if (this.getTravelParticleName() != null)
+            if (this.getTravelParticle() != null)
             {
             	for (int i = 0; i < 1; i++)
             	{
             		for (int j = 0; j < 1; j++)
             		{
-            			Archmage.proxy.spawnParticle(this.getTravelParticleName(), this.getTravelParticleVersion(), this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
+            			Archmage.proxy.spawnParticle(this.getTravelParticle(), this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
             		}
             	}
             }
@@ -182,7 +183,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
         double motionZ = rand.nextGaussian() * 0.02D;
   
         
-        if (this.getImpactParticleName() != null)
+        if (this.getImpactParticle() != null)
         {
 			if (result.typeOfHit == RayTraceResult.Type.ENTITY)
 			{
@@ -192,7 +193,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 	        	{
 	        		for (int j = 0; j < 20; j++)
 	        		{
-						Archmage.proxy.spawnParticle(this.getImpactParticleName(), this.getImpactParticleVersion(),
+						Archmage.proxy.spawnParticle(this.getImpactParticle(),
 								entity.posX + rand.nextFloat() * entity.width * 2.0F - entity.width,
 								entity.posY + 0.5D + rand.nextFloat() * entity.height,
 								entity.posZ + rand.nextFloat() * entity.width * 2.0F - entity.width, motionX, motionY,
@@ -213,7 +214,7 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 	        	{    		
 	        		for (int j = 0; j < 15; j++)
 	        		{
-						Archmage.proxy.spawnParticle(this.getImpactParticleName(), this.getImpactParticleVersion(), posX, posY, posZ, motionX, motionY, motionZ);
+						Archmage.proxy.spawnParticle(this.getImpactParticle(), posX, posY, posZ, motionX, motionY, motionZ);
 						motionX = rand.nextGaussian() * 0.04D;
 						motionY = rand.nextGaussian() * 0.04D;
 						motionZ = rand.nextGaussian() * 0.04D;
@@ -253,31 +254,18 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 	public abstract double getSpeed();
 	
 	/**
-	 * Get the name of the spells travel particle.
+	 * Get the spells travel particle.
 	 * 
 	 * @return
 	 */
-	public abstract String getTravelParticleName();
-	
-	/**
-	 * Get the version of the spells travel particle.
-	 * 
-	 * @return
-	 */
-	public abstract int getTravelParticleVersion();
+	public abstract EnumParticles getTravelParticle();
 
 	/**
-	 * Get the name of the spells impact particle.
+	 * Get the spells impact particle.
 	 * 
 	 * @return
 	 */
-	public abstract String getImpactParticleName();
-	
-	/**
-	 * Get the version of the spells impact particle.
-	 * @return
-	 */
-	public abstract int getImpactParticleVersion();
+	public abstract EnumParticles getImpactParticle();
 	
 	/**
 	 * Get the max ticks the spell is allowed to exist.
