@@ -15,35 +15,35 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 public class StatusEffectsProvider implements ICapabilitySerializable<NBTTagCompound>
 {
 	@CapabilityInject(IStatusEffects.class)
-	public static final Capability<IStatusEffects> STATUS_EFFECT = null;
+	public static final Capability<IStatusEffects> STATUS_EFFECTS = null;
 	
 	/**
 	 * Default instance of {@link IStatusEffects} capability.
 	 */
-	private IStatusEffects instance = STATUS_EFFECT.getDefaultInstance();
+	private IStatusEffects instance = STATUS_EFFECTS.getDefaultInstance();
 	
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing)
 	{
-		return capability == STATUS_EFFECT;
+		return capability == STATUS_EFFECTS;
 	}
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing)
 	{
-		return capability == STATUS_EFFECT ? STATUS_EFFECT.<T>cast(this.instance) : null;
+		return capability == STATUS_EFFECTS ? STATUS_EFFECTS.<T>cast(this.instance) : null;
 	}
 
 	@Override
 	public NBTTagCompound serializeNBT()
 	{
-		return (NBTTagCompound) STATUS_EFFECT.getStorage().writeNBT(STATUS_EFFECT, this.instance, null);
+		return (NBTTagCompound) STATUS_EFFECTS.getStorage().writeNBT(STATUS_EFFECTS, this.instance, null);
 	}
 
 	@Override
 	public void deserializeNBT(NBTTagCompound nbt)
 	{
-		STATUS_EFFECT.getStorage().readNBT(STATUS_EFFECT, this.instance, null, nbt);
+		STATUS_EFFECTS.getStorage().readNBT(STATUS_EFFECTS, this.instance, null, nbt);
 	}
 
 }
