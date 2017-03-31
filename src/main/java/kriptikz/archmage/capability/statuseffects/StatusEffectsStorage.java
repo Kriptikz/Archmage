@@ -19,10 +19,13 @@ public class StatusEffectsStorage implements IStorage<IStatusEffects>
 	{
 		NBTTagCompound NBTData = new NBTTagCompound();
 		
-		// Write status effect arrays to NBT.
-		for (EnumStatusEffectId effectId : EnumStatusEffectId.values())
+		// Write status effect data to NBT.
+		for (StatusEffectData effectData : instance.getStatusEffects())
 		{
-			NBTData.setIntArray("status_effect_" + effectId.toString().toLowerCase(), instance.getStatusEffectFromId(effectId));
+			NBTData.setBoolean(effectData.getName() + "_is_active", effectData.getIsActive());
+			NBTData.setInteger(effectData.getName() + "_ticks", effectData.getTicks());
+			NBTData.setInteger(effectData.getName() + "_duration", effectData.getDuration());
+			NBTData.setInteger(effectData.getName() + "_amp", effectData.getAmp());
 		}
 		
 		return NBTData;
@@ -33,10 +36,13 @@ public class StatusEffectsStorage implements IStorage<IStatusEffects>
 	{
 		NBTTagCompound NBTData = (NBTTagCompound) nbt;
 		
-		// Read status effect arrays from NBT.
-		for (EnumStatusEffectId effectId : EnumStatusEffectId.values())
+		// Read status effect data from NBT.
+		for (StatusEffectData effectData : instance.getStatusEffects())
 		{
-			instance.setStatusEffectFromId(effectId, NBTData.getIntArray("status_effect_" + effectId.toString().toLowerCase()));
+			effectData.setIsActive(NBTData.getBoolean(effectData.getName() + "_is_active"));
+			effectData.setTicks(NBTData.getInteger(effectData.getName() + "_ticks"));
+			effectData.setDuration(NBTData.getInteger(effectData.getName() + "_duration"));
+			effectData.setAmp(NBTData.getInteger(effectData.getName() + "_amp"));
 		}
 	}
 
