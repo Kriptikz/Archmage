@@ -50,11 +50,11 @@ public class SpellsStorage implements IStorage<ISpells>
 		// Write spell data to NBT.
 		for (SpellData spellData : instance.getSpells())
 		{
-			NBTData.setBoolean(spellData.getSpell().getName() + "_is_learned", spellData.getIsLearned());
-			NBTData.setInteger(spellData.getSpell().getName() + "_level", spellData.getLevel());
-			NBTData.setInteger(spellData.getSpell().getName() + "_xp", spellData.getXp());
-			NBTData.setInteger(spellData.getSpell().getName() + "_level_max_xp", spellData.getLevelMaxXp());
-			NBTData.setBoolean(spellData.getSpell().getName() + "_should_gain_xp", spellData.getShouldGainXp());
+			NBTData.setBoolean(spellData.getName() + "_is_learned", spellData.getIsLearned());
+			NBTData.setInteger(spellData.getName() + "_level", spellData.getLevel());
+			NBTData.setInteger(spellData.getName() + "_xp", spellData.getXp());
+			NBTData.setInteger(spellData.getName() + "_level_max_xp", spellData.getLevelMaxXp());
+			NBTData.setBoolean(spellData.getName() + "_should_gain_xp", spellData.getShouldGainXp());
 		}
 		
 		return NBTData;
@@ -85,11 +85,11 @@ public class SpellsStorage implements IStorage<ISpells>
 		// Read spell data from NBT.		
 		for (SpellData spellData : instance.getSpells())
 		{
-			spellData.setIsLearned(NBTData.getBoolean(spellData.getSpell().getName() + "_is_learned"));
-			spellData.setLevel(NBTData.getInteger(spellData.getSpell().getName() + "_level"));
-			spellData.setXp(NBTData.getInteger(spellData.getSpell().getName() + "_xp"));
-			spellData.setLevelMaxXp(NBTData.getInteger(spellData.getSpell().getName() + "_level_max_xp"));
-			spellData.setShouldGainXp(NBTData.getBoolean(spellData.getSpell().getName() + "_should_gain_xp"));
+			spellData.setIsLearned(NBTData.getBoolean(spellData.getName() + "_is_learned"));
+			spellData.setLevel(NBTData.getInteger(spellData.getName() + "_level"));
+			spellData.setXp(NBTData.getInteger(spellData.getName() + "_xp"));
+			spellData.setLevelMaxXp(NBTData.getInteger(spellData.getName() + "_level_max_xp"));
+			spellData.setShouldGainXp(NBTData.getBoolean(spellData.getName() + "_should_gain_xp"));
 		}
 	}
 

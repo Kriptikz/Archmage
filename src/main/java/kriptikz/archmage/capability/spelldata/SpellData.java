@@ -16,9 +16,9 @@ public class SpellData
 	private boolean shouldGainXp = true;
 	
 	/**
-	 * Constructor for {@link Spell}.
+	 * Constructor for {@link SpellData}.
 	 * 
-	 * @param name an enum from {@link SpellName}
+	 * @param spell an enum from {@link EnumSpells}
 	 */
 	public SpellData(EnumSpells spell)
 	{
@@ -26,13 +26,23 @@ public class SpellData
 	}
 	
 	/**
-	 * Get the enum {@link EnumSpells} of the spell.
+	 * Get the id for this spell from {@link EnumSpells}.
 	 * 
-	 * @return {@link SpellName}
+	 * @return
 	 */
-	public EnumSpells getSpell()
+	public int getId()
 	{
-		return this.spell;
+		return this.spell.getId();
+	}
+	
+	/**
+	 * Get the name of this spell from {@link EnumSpells}.
+	 * 
+	 * @return
+	 */
+	public String getName()
+	{
+		return this.spell.getName();
 	}
 	
 	/**
