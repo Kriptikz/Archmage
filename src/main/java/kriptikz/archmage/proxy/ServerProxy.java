@@ -1,7 +1,6 @@
 package kriptikz.archmage.proxy;
 
-import javax.annotation.Nullable;
-
+import kriptikz.archmage.client.particle.EnumParticles;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IThreadListener;
@@ -32,7 +31,7 @@ public class ServerProxy implements IProxy
 	}
 	
 	@Override
-	public void spawnParticle(String particleName, @Nullable int version, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed,
+	public void spawnParticle(EnumParticles particle, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed,
 			double zSpeed)
 	{
 	}

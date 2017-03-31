@@ -1,13 +1,11 @@
 package kriptikz.archmage.proxy;
 
-import javax.annotation.Nullable;
-
 import kriptikz.archmage.client.TextureStitcher;
+import kriptikz.archmage.client.particle.EnumParticles;
 import kriptikz.archmage.client.particle.ParticleDefault;
 import kriptikz.archmage.client.particle.ParticleFire;
 import kriptikz.archmage.init.ModEntities;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IThreadListener;
@@ -49,23 +47,17 @@ public class ClientProxy implements IProxy
 	}
 	
 	@Override
-	public void spawnParticle(String particleName, @Nullable int version, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed,
+	public void spawnParticle(EnumParticles particle, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed,
 			double zSpeed)
 	{
-		Particle particle = null;
 		
-		switch(particleName)
-		{
-			case "fire":
-				particle = new ParticleFire(1, MINECRAFT.world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed);
+		switch(particle)
+		{	
+			case FIRE:
+				MINECRAFT.effectRenderer.addEffect(new ParticleFire(MINECRAFT.world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed));
 				break;
 			default:
-				particle = new ParticleDefault(1, MINECRAFT.world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed);
-		}
-		
-		if ( particle != null)
-		{
-			MINECRAFT.effectRenderer.addEffect(particle);
+				MINECRAFT.effectRenderer.addEffect(new ParticleDefault(MINECRAFT.world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed));
 		}
 	}
 

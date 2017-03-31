@@ -3,6 +3,7 @@ package kriptikz.archmage.item;
 import kriptikz.archmage.Archmage;
 import kriptikz.archmage.capability.spelldata.ISpells;
 import kriptikz.archmage.capability.spelldata.SpellsProvider;
+import kriptikz.archmage.client.particle.EnumParticles;
 import kriptikz.archmage.entity.EntitySpellBase;
 import kriptikz.archmage.spell.ISpellBase;
 import kriptikz.archmage.spell.SpellFireball;
@@ -100,10 +101,10 @@ public class ItemWand extends ItemBase
 						case NONE:
 							break;
 						case FIREBALL:
-							Archmage.proxy.spawnParticle("fire", 1, particlePos.xCoord, particlePos.yCoord, particlePos.zCoord, 0.0D, 0.0D, 0.0D);
+							Archmage.proxy.spawnParticle(EnumParticles.FIRE, particlePos.xCoord, particlePos.yCoord, particlePos.zCoord, 0.0D, 0.0D, 0.0D);
 							break;
 						default:
-							Archmage.proxy.spawnParticle("default", 1, particlePos.xCoord, particlePos.yCoord, particlePos.zCoord, 0.0D, 0.0D, 0.0D);
+							Archmage.proxy.spawnParticle(EnumParticles.DEFAULT, particlePos.xCoord, particlePos.yCoord, particlePos.zCoord, 0.0D, 0.0D, 0.0D);
 					}
 				}			
 			}
