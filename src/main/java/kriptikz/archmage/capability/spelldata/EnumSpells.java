@@ -11,6 +11,7 @@ public enum EnumSpells
 	NONE(0), FIREBALL(1), STUN(2), SELF_HEAL(3), HEAL_PROJECTILE(4), DIZZIFY(5), SLOW(6),
 	DUMMY_CLONE(7), LEVITATE(8), WARP(9), TELEPORT(10);
 	
+	/** The integer id of the spell. Necessary for reading/writing NBT data.*/
 	private int id;
 	
 	EnumSpells(int id)
