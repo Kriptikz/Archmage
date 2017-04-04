@@ -309,19 +309,19 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound compound)
 	{	
-		this.casterId = UUID.fromString(compound.getString("caster_uuid"));
-		
-		if (compound.hasKey("direction", 9) && compound.getTagList("direction", 6).tagCount() == 3)
-		{
-            NBTTagList nbttaglist1 = compound.getTagList("direction", 6);
-            this.motionX = nbttaglist1.getDoubleAt(0);
-            this.motionY = nbttaglist1.getDoubleAt(1);
-            this.motionZ = nbttaglist1.getDoubleAt(2);
-        }
-		else
-		{
-            this.setDead();
-        }
+	    this.casterId = UUID.fromString(compound.getString("caster_uuid"));
+	    
+	    if (compound.hasKey("direction", 9) && compound.getTagList("direction", 6).tagCount() == 3)
+	    {
+                NBTTagList nbttaglist1 = compound.getTagList("direction", 6);
+                this.motionX = nbttaglist1.getDoubleAt(0);
+                this.motionY = nbttaglist1.getDoubleAt(1);
+                this.motionZ = nbttaglist1.getDoubleAt(2);
+	    }
+	    else
+	    {
+                this.setDead();
+            }
 	}
 
 	@Override
