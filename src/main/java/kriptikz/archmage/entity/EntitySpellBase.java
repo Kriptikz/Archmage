@@ -240,7 +240,8 @@ public abstract class EntitySpellBase extends Entity implements ISpellBase, IEnt
     		caster = this.world.getPlayerEntityByUUID(this.casterId);
     		if (caster != null) 
     		{
-    			this.casterRef = new WeakReference<EntityLivingBase>(caster);
+		    // cache for next time.
+    		    this.casterRef = new WeakReference<EntityLivingBase>(caster);
     		}
     	}
     	return caster;
