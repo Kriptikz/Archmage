@@ -1,9 +1,11 @@
 package kriptikz.archmage.proxy;
 
 import kriptikz.archmage.client.TextureStitcher;
+import kriptikz.archmage.client.keybinds.Keybinds;
 import kriptikz.archmage.client.particle.EnumParticles;
 import kriptikz.archmage.client.particle.ParticleDefault;
 import kriptikz.archmage.client.particle.ParticleFire;
+import kriptikz.archmage.handler.KeyboardMouseHandler;
 import kriptikz.archmage.init.ModEntities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,8 +32,11 @@ public class ClientProxy implements IProxy
 	@Override
 	public void init()
 	{
-		// TODO register keybinds
+		// register keybinds
+	    Keybinds.register();
+	    
 		// TODO register client event handlers		
+	    MinecraftForge.EVENT_BUS.register(new KeyboardMouseHandler(MINECRAFT));
 	}
 
 	@Override
