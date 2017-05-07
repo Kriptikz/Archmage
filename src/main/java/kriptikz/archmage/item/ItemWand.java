@@ -34,7 +34,7 @@ public class ItemWand extends ItemBase
 	
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeleft)
-	{
+	{   
 		if (timeleft <= 975)
 		{	
 			if (!worldIn.isRemote)
