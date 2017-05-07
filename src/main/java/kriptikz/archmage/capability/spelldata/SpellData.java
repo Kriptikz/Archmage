@@ -10,6 +10,7 @@ public class SpellData
 {
 	private final EnumSpells spell;
 	private boolean isLearned = false;
+	private int selectedLevel = 1;
 	private int level = 1;
 	private int xp = 0;
 	private int levelMaxXp = 100;
@@ -97,6 +98,37 @@ public class SpellData
 	public int getLevel()
 	{
 		return this.level;
+	}
+	
+	/**
+	 * Set the currently selected level of the spell.
+	 * 
+	 * @param selectedLevel
+	 */
+	public void setSelectedLevel(int selectedLevel)
+	{
+	    if (selectedLevel <= 0)
+	    {
+	        this.selectedLevel = 1;
+	    }
+	    else if (selectedLevel > this.level)
+	    {
+	        this.selectedLevel = level;
+	    }
+	    else
+	    {
+	        this.selectedLevel = selectedLevel;
+	    }
+	}
+	
+	/**
+	 * Get the currently selected level of the spell.
+	 * 
+	 * @return
+	 */
+	public int getSelectedLevel()
+	{
+	    return this.selectedLevel;
 	}
 	
 	/**
