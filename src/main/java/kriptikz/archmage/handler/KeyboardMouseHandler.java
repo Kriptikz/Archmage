@@ -5,8 +5,6 @@ import kriptikz.archmage.client.keybinds.Keybinds;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class KeyboardMouseHandler
 {
@@ -17,7 +15,6 @@ public class KeyboardMouseHandler
         this.mc = mc;
     }
     
-    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onKeyInput(KeyInputEvent event)
     {
