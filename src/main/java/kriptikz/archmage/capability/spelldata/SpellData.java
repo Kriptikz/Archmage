@@ -101,7 +101,7 @@ public class SpellData
 	}
 	
 	/**
-	 * Set the currently selected level of the spell.
+	 * Set the currently selected level of the spell. This allows the player to customize the power of the spell.
 	 * 
 	 * @param selectedLevel
 	 */
